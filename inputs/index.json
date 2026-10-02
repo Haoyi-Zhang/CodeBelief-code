@@ -1,0 +1,99 @@
+[
+  {
+    "snapshot": 0,
+    "source": "inputs/history/state_00.c",
+    "expected_masks": [
+      1,
+      1,
+      1
+    ],
+    "role": "protected control"
+  },
+  {
+    "snapshot": 1,
+    "source": "inputs/history/state_01.c",
+    "expected_masks": [
+      1,
+      2,
+      3
+    ],
+    "role": "mixed threshold counterexample"
+  },
+  {
+    "snapshot": 2,
+    "source": "inputs/history/state_02.c",
+    "expected_masks": [
+      2,
+      2,
+      2
+    ],
+    "role": "unprotected control"
+  },
+  {
+    "snapshot": 3,
+    "source": "inputs/history/state_03.c",
+    "expected_masks": [
+      1,
+      1,
+      1
+    ],
+    "role": "repaired control"
+  },
+  {
+    "snapshot": 0,
+    "source": "inputs/controls/protected.c",
+    "expected_masks": [
+      1,
+      1,
+      1
+    ],
+    "role": "original exact control"
+  },
+  {
+    "snapshot": 0,
+    "source": "inputs/controls/unprotected.c",
+    "expected_masks": [
+      2,
+      2,
+      2
+    ],
+    "role": "original exact control"
+  },
+  {
+    "snapshot": 0,
+    "source": "inputs/controls/shared.c",
+    "expected_masks": [
+      3
+    ],
+    "role": "original exact control"
+  },
+  {
+    "snapshot": 0,
+    "source": "inputs/controls/ineligible.c",
+    "expected_masks": [],
+    "role": "original exact control"
+  },
+  {
+    "snapshot": 0,
+    "source": "inputs/controls/mixed.c",
+    "expected_masks": [
+      1,
+      2,
+      3
+    ],
+    "role": "original exact control"
+  },
+  {
+    "snapshot": 0,
+    "source": "inputs/controls/sharing.c",
+    "expected_masks": [
+      1,
+      1,
+      2,
+      2,
+      3,
+      3
+    ],
+    "role": "original exact control"
+  }
+]

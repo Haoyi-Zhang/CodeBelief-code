@@ -1,0 +1,15 @@
+{
+  "effective_cpu_quota": 4,
+  "cpu_affinity_count": 5,
+  "memory_limit_bytes": 4294967296,
+  "memory_current_bytes": 359424000,
+  "swap_total_kib": 0,
+  "free_writable_bytes": 32029863936,
+  "chosen_workers": 1,
+  "rss_ceiling_bytes": 3758096384,
+  "total_cpu_budget_seconds": 28800,
+  "repair_reserve_seconds": 7200,
+  "campaign_budget_before_reserve_seconds": 21600,
+  "per_chunk_wall_limit_seconds": 35,
+  "intake_note": "Measured once, before scientific execution; no stress test."
+}

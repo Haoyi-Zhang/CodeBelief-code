@@ -1,0 +1,316 @@
+{
+  "certificates": 45,
+  "external_independent_review": false,
+  "negative_controls": 18,
+  "positive_certificates": 27,
+  "producer_module_imported": false,
+  "records": [
+    {
+      "case": "public-cjson-chain-code-heavy",
+      "cost": 8,
+      "oracle_cost": 8,
+      "oracle_witness_origins": 4,
+      "selected_origins": 4,
+      "status": "certificate"
+    },
+    {
+      "case": "public-cjson-chain-history-heavy",
+      "cost": 7,
+      "oracle_cost": 7,
+      "oracle_witness_origins": 4,
+      "selected_origins": 4,
+      "status": "certificate"
+    },
+    {
+      "case": "public-cjson-chain-unit",
+      "cost": 4,
+      "oracle_cost": 4,
+      "oracle_witness_origins": 4,
+      "selected_origins": 4,
+      "status": "certificate"
+    },
+    {
+      "case": "public-cjson-choice-code-heavy",
+      "cost": 8,
+      "oracle_cost": 8,
+      "oracle_witness_origins": 4,
+      "selected_origins": 4,
+      "status": "certificate"
+    },
+    {
+      "case": "public-cjson-choice-history-heavy",
+      "cost": 6,
+      "oracle_cost": 6,
+      "oracle_witness_origins": 5,
+      "selected_origins": 5,
+      "status": "certificate"
+    },
+    {
+      "case": "public-cjson-choice-unit",
+      "cost": 4,
+      "oracle_cost": 4,
+      "oracle_witness_origins": 4,
+      "selected_origins": 4,
+      "status": "certificate"
+    },
+    {
+      "case": "public-cjson-direct-code-heavy",
+      "cost": 8,
+      "oracle_cost": 8,
+      "oracle_witness_origins": 4,
+      "selected_origins": 4,
+      "status": "certificate"
+    },
+    {
+      "case": "public-cjson-direct-history-heavy",
+      "cost": 7,
+      "oracle_cost": 7,
+      "oracle_witness_origins": 4,
+      "selected_origins": 4,
+      "status": "certificate"
+    },
+    {
+      "case": "public-cjson-direct-unit",
+      "cost": 4,
+      "oracle_cost": 4,
+      "oracle_witness_origins": 4,
+      "selected_origins": 4,
+      "status": "certificate"
+    },
+    {
+      "case": "public-cjson-no-bridge-control-code-heavy",
+      "oracle": "none",
+      "status": "no-contradiction-certificate"
+    },
+    {
+      "case": "public-cjson-no-bridge-control-history-heavy",
+      "oracle": "none",
+      "status": "no-contradiction-certificate"
+    },
+    {
+      "case": "public-cjson-no-bridge-control-unit",
+      "oracle": "none",
+      "status": "no-contradiction-certificate"
+    },
+    {
+      "case": "public-cjson-single-side-control-code-heavy",
+      "oracle": "none",
+      "status": "no-contradiction-certificate"
+    },
+    {
+      "case": "public-cjson-single-side-control-history-heavy",
+      "oracle": "none",
+      "status": "no-contradiction-certificate"
+    },
+    {
+      "case": "public-cjson-single-side-control-unit",
+      "oracle": "none",
+      "status": "no-contradiction-certificate"
+    },
+    {
+      "case": "public-inih-chain-code-heavy",
+      "cost": 8,
+      "oracle_cost": 8,
+      "oracle_witness_origins": 4,
+      "selected_origins": 4,
+      "status": "certificate"
+    },
+    {
+      "case": "public-inih-chain-history-heavy",
+      "cost": 7,
+      "oracle_cost": 7,
+      "oracle_witness_origins": 4,
+      "selected_origins": 4,
+      "status": "certificate"
+    },
+    {
+      "case": "public-inih-chain-unit",
+      "cost": 4,
+      "oracle_cost": 4,
+      "oracle_witness_origins": 4,
+      "selected_origins": 4,
+      "status": "certificate"
+    },
+    {
+      "case": "public-inih-choice-code-heavy",
+      "cost": 8,
+      "oracle_cost": 8,
+      "oracle_witness_origins": 4,
+      "selected_origins": 4,
+      "status": "certificate"
+    },
+    {
+      "case": "public-inih-choice-history-heavy",
+      "cost": 6,
+      "oracle_cost": 6,
+      "oracle_witness_origins": 5,
+      "selected_origins": 5,
+      "status": "certificate"
+    },
+    {
+      "case": "public-inih-choice-unit",
+      "cost": 4,
+      "oracle_cost": 4,
+      "oracle_witness_origins": 4,
+      "selected_origins": 4,
+      "status": "certificate"
+    },
+    {
+      "case": "public-inih-direct-code-heavy",
+      "cost": 8,
+      "oracle_cost": 8,
+      "oracle_witness_origins": 4,
+      "selected_origins": 4,
+      "status": "certificate"
+    },
+    {
+      "case": "public-inih-direct-history-heavy",
+      "cost": 7,
+      "oracle_cost": 7,
+      "oracle_witness_origins": 4,
+      "selected_origins": 4,
+      "status": "certificate"
+    },
+    {
+      "case": "public-inih-direct-unit",
+      "cost": 4,
+      "oracle_cost": 4,
+      "oracle_witness_origins": 4,
+      "selected_origins": 4,
+      "status": "certificate"
+    },
+    {
+      "case": "public-inih-no-bridge-control-code-heavy",
+      "oracle": "none",
+      "status": "no-contradiction-certificate"
+    },
+    {
+      "case": "public-inih-no-bridge-control-history-heavy",
+      "oracle": "none",
+      "status": "no-contradiction-certificate"
+    },
+    {
+      "case": "public-inih-no-bridge-control-unit",
+      "oracle": "none",
+      "status": "no-contradiction-certificate"
+    },
+    {
+      "case": "public-inih-single-side-control-code-heavy",
+      "oracle": "none",
+      "status": "no-contradiction-certificate"
+    },
+    {
+      "case": "public-inih-single-side-control-history-heavy",
+      "oracle": "none",
+      "status": "no-contradiction-certificate"
+    },
+    {
+      "case": "public-inih-single-side-control-unit",
+      "oracle": "none",
+      "status": "no-contradiction-certificate"
+    },
+    {
+      "case": "public-mjson-chain-code-heavy",
+      "cost": 8,
+      "oracle_cost": 8,
+      "oracle_witness_origins": 4,
+      "selected_origins": 4,
+      "status": "certificate"
+    },
+    {
+      "case": "public-mjson-chain-history-heavy",
+      "cost": 7,
+      "oracle_cost": 7,
+      "oracle_witness_origins": 4,
+      "selected_origins": 4,
+      "status": "certificate"
+    },
+    {
+      "case": "public-mjson-chain-unit",
+      "cost": 4,
+      "oracle_cost": 4,
+      "oracle_witness_origins": 4,
+      "selected_origins": 4,
+      "status": "certificate"
+    },
+    {
+      "case": "public-mjson-choice-code-heavy",
+      "cost": 8,
+      "oracle_cost": 8,
+      "oracle_witness_origins": 4,
+      "selected_origins": 4,
+      "status": "certificate"
+    },
+    {
+      "case": "public-mjson-choice-history-heavy",
+      "cost": 6,
+      "oracle_cost": 6,
+      "oracle_witness_origins": 5,
+      "selected_origins": 5,
+      "status": "certificate"
+    },
+    {
+      "case": "public-mjson-choice-unit",
+      "cost": 4,
+      "oracle_cost": 4,
+      "oracle_witness_origins": 4,
+      "selected_origins": 4,
+      "status": "certificate"
+    },
+    {
+      "case": "public-mjson-direct-code-heavy",
+      "cost": 8,
+      "oracle_cost": 8,
+      "oracle_witness_origins": 4,
+      "selected_origins": 4,
+      "status": "certificate"
+    },
+    {
+      "case": "public-mjson-direct-history-heavy",
+      "cost": 7,
+      "oracle_cost": 7,
+      "oracle_witness_origins": 4,
+      "selected_origins": 4,
+      "status": "certificate"
+    },
+    {
+      "case": "public-mjson-direct-unit",
+      "cost": 4,
+      "oracle_cost": 4,
+      "oracle_witness_origins": 4,
+      "selected_origins": 4,
+      "status": "certificate"
+    },
+    {
+      "case": "public-mjson-no-bridge-control-code-heavy",
+      "oracle": "none",
+      "status": "no-contradiction-certificate"
+    },
+    {
+      "case": "public-mjson-no-bridge-control-history-heavy",
+      "oracle": "none",
+      "status": "no-contradiction-certificate"
+    },
+    {
+      "case": "public-mjson-no-bridge-control-unit",
+      "oracle": "none",
+      "status": "no-contradiction-certificate"
+    },
+    {
+      "case": "public-mjson-single-side-control-code-heavy",
+      "oracle": "none",
+      "status": "no-contradiction-certificate"
+    },
+    {
+      "case": "public-mjson-single-side-control-history-heavy",
+      "oracle": "none",
+      "status": "no-contradiction-certificate"
+    },
+    {
+      "case": "public-mjson-single-side-control-unit",
+      "oracle": "none",
+      "status": "no-contradiction-certificate"
+    }
+  ],
+  "status": "joint-independent-replay-passed"
+}

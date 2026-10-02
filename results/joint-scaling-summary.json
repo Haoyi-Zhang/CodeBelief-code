@@ -1,0 +1,6 @@
+{
+  "largest_alternatives_per_side": 256,
+  "largest_candidate_pairs": 65536,
+  "rows": 8,
+  "timing_note": "single-process Python perf_counter_ns; descriptive, not cross-machine performance"
+}

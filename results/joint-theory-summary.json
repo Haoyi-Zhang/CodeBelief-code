@@ -1,0 +1,8 @@
+{
+  "all_formula_checks_passed": true,
+  "deletion_gap_cases": 8,
+  "largest_deletion_ratio": 128.0,
+  "largest_observed_two_approx_ratio": 1.9844961240310077,
+  "largest_two_approx_parameter": 128,
+  "two_approx_cases": 8
+}

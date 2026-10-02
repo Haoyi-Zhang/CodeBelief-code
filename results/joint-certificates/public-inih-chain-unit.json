@@ -1,0 +1,310 @@
+{
+  "oracle_selected": [
+    "after-feature",
+    "before-feature",
+    "entity-bridge",
+    "history-change"
+  ],
+  "problem": {
+    "facts": [
+      {
+        "literal": "bridge:inih",
+        "name": "entity-bridge-fact",
+        "origins": [
+          "entity-bridge"
+        ]
+      },
+      {
+        "literal": "signal:inih:before",
+        "name": "before-signal",
+        "origins": [
+          "before-feature",
+          "history-change"
+        ]
+      },
+      {
+        "literal": "signal:inih:after",
+        "name": "after-signal",
+        "origins": [
+          "after-feature",
+          "history-change"
+        ]
+      }
+    ],
+    "metadata": {
+      "defect_label": "none",
+      "host": "inih",
+      "profile": "unit",
+      "project": "inih",
+      "seeded": "true",
+      "variant": "chain"
+    },
+    "name": "public-inih-chain-unit",
+    "negative": "not:policy:inih:consume-overlong-line",
+    "origins": [
+      {
+        "anchor": "if (max_line >= INI_MAX_LINE)\n                break;",
+        "id": "before-feature",
+        "kind": "code",
+        "metadata": {
+          "file": "inputs/public/inih/r58/ini_parse_stream_excerpt.c",
+          "host": "inih",
+          "project": "inih",
+          "snapshot": "r58"
+        },
+        "path": "inputs/public/inih/r58/ini_parse_stream_excerpt.c",
+        "weight": 1
+      },
+      {
+        "anchor": "char abyss[16];  /* Used to consume input when a line is too long. */",
+        "id": "after-feature",
+        "kind": "code",
+        "metadata": {
+          "file": "inputs/public/inih/r59/ini_parse_stream_excerpt.c",
+          "host": "inih",
+          "project": "inih",
+          "snapshot": "r59"
+        },
+        "path": "inputs/public/inih/r59/ini_parse_stream_excerpt.c",
+        "weight": 1
+      },
+      {
+        "anchor": "while (offset == max_line - 1 && line[offset - 1] != '\\n')",
+        "id": "before-context",
+        "kind": "code",
+        "metadata": {
+          "file": "inputs/public/inih/r58/ini_parse_stream_excerpt.c",
+          "host": "inih",
+          "project": "inih",
+          "snapshot": "r58"
+        },
+        "path": "inputs/public/inih/r58/ini_parse_stream_excerpt.c",
+        "weight": 1
+      },
+      {
+        "anchor": "while (offset == max_line - 1 && line[offset - 1] != '\\n')",
+        "id": "after-context",
+        "kind": "code",
+        "metadata": {
+          "file": "inputs/public/inih/r59/ini_parse_stream_excerpt.c",
+          "host": "inih",
+          "project": "inih",
+          "snapshot": "r59"
+        },
+        "path": "inputs/public/inih/r59/ini_parse_stream_excerpt.c",
+        "weight": 1
+      },
+      {
+        "anchor": "int ini_parse_stream(ini_reader reader, void* stream, ini_handler handler,",
+        "id": "shared-code",
+        "kind": "code",
+        "metadata": {
+          "file": "inputs/public/inih/r59/ini_parse_stream_excerpt.c",
+          "host": "inih",
+          "project": "inih",
+          "snapshot": "r59"
+        },
+        "path": "inputs/public/inih/r59/ini_parse_stream_excerpt.c",
+        "weight": 1
+      },
+      {
+        "anchor": null,
+        "id": "history-change",
+        "kind": "change",
+        "metadata": {
+          "after_anchor": "char abyss[16];  /* Used to consume input when a line is too long. */",
+          "after_file": "inputs/public/inih/r59/ini_parse_stream_excerpt.c",
+          "after_origin": "after-feature",
+          "after_snapshot": "r59",
+          "before_anchor": "if (max_line >= INI_MAX_LINE)\n                break;",
+          "before_file": "inputs/public/inih/r58/ini_parse_stream_excerpt.c",
+          "before_origin": "before-feature",
+          "before_snapshot": "r58",
+          "host": "inih",
+          "project": "inih"
+        },
+        "path": null,
+        "weight": 1
+      },
+      {
+        "anchor": null,
+        "id": "entity-bridge",
+        "kind": "bridge",
+        "metadata": {
+          "after_origin": "after-feature",
+          "after_snapshot": "r59",
+          "assumption": "the referenced routine denotes one evolving entity across the two tagged snapshots",
+          "before_origin": "before-feature",
+          "before_snapshot": "r58",
+          "host": "inih",
+          "project": "inih"
+        },
+        "path": null,
+        "weight": 1
+      }
+    ],
+    "positive": "policy:inih:consume-overlong-line",
+    "rules": [
+      {
+        "body": [
+          "signal:inih:before"
+        ],
+        "head": "legacy:inih",
+        "name": "before-stage-1"
+      },
+      {
+        "body": [
+          "legacy:inih"
+        ],
+        "head": "interpreted-old:inih",
+        "name": "before-stage-2"
+      },
+      {
+        "body": [
+          "interpreted-old:inih",
+          "bridge:inih"
+        ],
+        "head": "not:policy:inih:consume-overlong-line",
+        "name": "before-to-negative-policy"
+      },
+      {
+        "body": [
+          "signal:inih:after"
+        ],
+        "head": "current:inih",
+        "name": "after-stage-1"
+      },
+      {
+        "body": [
+          "current:inih"
+        ],
+        "head": "interpreted-new:inih",
+        "name": "after-stage-2"
+      },
+      {
+        "body": [
+          "interpreted-new:inih",
+          "bridge:inih"
+        ],
+        "head": "policy:inih:consume-overlong-line",
+        "name": "after-to-positive-policy"
+      }
+    ]
+  },
+  "schema": "joint-contradiction-certificate-v1",
+  "solution": {
+    "algorithm": "exact-antichain",
+    "cost": 4,
+    "metrics": {
+      "iterations": 2,
+      "negative_depth": 4,
+      "negative_frontier": 1,
+      "positive_depth": 4,
+      "positive_frontier": 1,
+      "total_frontier_entries": 9
+    },
+    "negative_proof": {
+      "literal": "not:policy:inih:consume-overlong-line",
+      "premises": [
+        {
+          "literal": "interpreted-old:inih",
+          "premises": [
+            {
+              "literal": "legacy:inih",
+              "premises": [
+                {
+                  "literal": "signal:inih:before",
+                  "premises": [],
+                  "step": "before-signal",
+                  "support": [
+                    "before-feature",
+                    "history-change"
+                  ]
+                }
+              ],
+              "step": "before-stage-1",
+              "support": [
+                "before-feature",
+                "history-change"
+              ]
+            }
+          ],
+          "step": "before-stage-2",
+          "support": [
+            "before-feature",
+            "history-change"
+          ]
+        },
+        {
+          "literal": "bridge:inih",
+          "premises": [],
+          "step": "entity-bridge-fact",
+          "support": [
+            "entity-bridge"
+          ]
+        }
+      ],
+      "step": "before-to-negative-policy",
+      "support": [
+        "before-feature",
+        "entity-bridge",
+        "history-change"
+      ]
+    },
+    "positive_proof": {
+      "literal": "policy:inih:consume-overlong-line",
+      "premises": [
+        {
+          "literal": "interpreted-new:inih",
+          "premises": [
+            {
+              "literal": "current:inih",
+              "premises": [
+                {
+                  "literal": "signal:inih:after",
+                  "premises": [],
+                  "step": "after-signal",
+                  "support": [
+                    "after-feature",
+                    "history-change"
+                  ]
+                }
+              ],
+              "step": "after-stage-1",
+              "support": [
+                "after-feature",
+                "history-change"
+              ]
+            }
+          ],
+          "step": "after-stage-2",
+          "support": [
+            "after-feature",
+            "history-change"
+          ]
+        },
+        {
+          "literal": "bridge:inih",
+          "premises": [],
+          "step": "entity-bridge-fact",
+          "support": [
+            "entity-bridge"
+          ]
+        }
+      ],
+      "step": "after-to-positive-policy",
+      "support": [
+        "after-feature",
+        "entity-bridge",
+        "history-change"
+      ]
+    },
+    "selected": [
+      "after-feature",
+      "before-feature",
+      "entity-bridge",
+      "history-change"
+    ],
+    "status": "certificate"
+  }
+}

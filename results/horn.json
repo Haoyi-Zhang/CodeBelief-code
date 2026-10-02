@@ -1,0 +1,18 @@
+[
+  {
+    "atoms": 2,
+    "discrepancies": 0,
+    "formula_count": 256,
+    "maximum_subset_size": null,
+    "universe_clauses": 8,
+    "unsatisfiable_count": 200
+  },
+  {
+    "atoms": 3,
+    "discrepancies": 0,
+    "formula_count": 6196,
+    "maximum_subset_size": 4,
+    "universe_clauses": 20,
+    "unsatisfiable_count": 1917
+  }
+]

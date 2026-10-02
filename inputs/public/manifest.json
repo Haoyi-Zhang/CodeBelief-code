@@ -1,0 +1,65 @@
+{
+  "scope": "Exact source excerpts from tagged public releases; excerpts are static analysis hosts, not defect labels.",
+  "projects": [
+    {
+      "project": "cJSON",
+      "repository": "https://github.com/DaveGamble/cJSON",
+      "license": "MIT",
+      "snapshots": [
+        {
+          "tag": "v1.7.17",
+          "path": "inputs/public/cjson/v1.7.17/cJSON_SetValuestring.c",
+          "upstream_path": "cJSON.c",
+          "upstream_lines": "401-431"
+        },
+        {
+          "tag": "v1.7.18",
+          "path": "inputs/public/cjson/v1.7.18/cJSON_SetValuestring.c",
+          "upstream_path": "cJSON.c",
+          "upstream_lines": "402-433"
+        }
+      ],
+      "change": "An explicit valuestring NULL guard was added."
+    },
+    {
+      "project": "inih",
+      "repository": "https://github.com/benhoyt/inih",
+      "license": "BSD-3-Clause",
+      "snapshots": [
+        {
+          "tag": "r58",
+          "path": "inputs/public/inih/r58/ini_parse_stream_excerpt.c",
+          "upstream_path": "ini.c",
+          "upstream_lines": "95-151 (selected exact excerpt)"
+        },
+        {
+          "tag": "r59",
+          "path": "inputs/public/inih/r59/ini_parse_stream_excerpt.c",
+          "upstream_path": "ini.c",
+          "upstream_lines": "95-173 (selected exact excerpt)"
+        }
+      ],
+      "change": "Overlong input is explicitly consumed through the next newline."
+    },
+    {
+      "project": "mjson",
+      "repository": "https://github.com/cesanta/mjson",
+      "license": "MIT",
+      "snapshots": [
+        {
+          "tag": "1.2.6",
+          "path": "inputs/public/mjson/1.2.6/mjson_print_dbl.c",
+          "upstream_path": "src/mjson.c",
+          "upstream_lines": "561-619"
+        },
+        {
+          "tag": "1.2.7",
+          "path": "inputs/public/mjson/1.2.7/mjson_print_dbl.c",
+          "upstream_path": "src/mjson.c",
+          "upstream_lines": "561-619"
+        }
+      ],
+      "change": "The integer-digit loop condition changed from the remaining value to the place multiplier."
+    }
+  ]
+}

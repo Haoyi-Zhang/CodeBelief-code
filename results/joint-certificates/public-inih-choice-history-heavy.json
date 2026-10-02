@@ -1,0 +1,278 @@
+{
+  "oracle_selected": [
+    "after-context",
+    "after-feature",
+    "before-context",
+    "before-feature",
+    "entity-bridge"
+  ],
+  "problem": {
+    "facts": [
+      {
+        "literal": "bridge:inih",
+        "name": "entity-bridge-fact",
+        "origins": [
+          "entity-bridge"
+        ]
+      },
+      {
+        "literal": "private-positive:inih",
+        "name": "positive-private",
+        "origins": [
+          "after-feature",
+          "after-context"
+        ]
+      },
+      {
+        "literal": "private-negative:inih",
+        "name": "negative-private",
+        "origins": [
+          "before-feature",
+          "before-context"
+        ]
+      },
+      {
+        "literal": "shared-positive:inih",
+        "name": "positive-shared",
+        "origins": [
+          "shared-code",
+          "after-context",
+          "history-change"
+        ]
+      },
+      {
+        "literal": "shared-negative:inih",
+        "name": "negative-shared",
+        "origins": [
+          "shared-code",
+          "after-context",
+          "history-change"
+        ]
+      }
+    ],
+    "metadata": {
+      "defect_label": "none",
+      "host": "inih",
+      "profile": "history-heavy",
+      "project": "inih",
+      "seeded": "true",
+      "variant": "choice"
+    },
+    "name": "public-inih-choice-history-heavy",
+    "negative": "not:policy:inih:consume-overlong-line",
+    "origins": [
+      {
+        "anchor": "if (max_line >= INI_MAX_LINE)\n                break;",
+        "id": "before-feature",
+        "kind": "code",
+        "metadata": {
+          "file": "inputs/public/inih/r58/ini_parse_stream_excerpt.c",
+          "host": "inih",
+          "project": "inih",
+          "snapshot": "r58"
+        },
+        "path": "inputs/public/inih/r58/ini_parse_stream_excerpt.c",
+        "weight": 1
+      },
+      {
+        "anchor": "char abyss[16];  /* Used to consume input when a line is too long. */",
+        "id": "after-feature",
+        "kind": "code",
+        "metadata": {
+          "file": "inputs/public/inih/r59/ini_parse_stream_excerpt.c",
+          "host": "inih",
+          "project": "inih",
+          "snapshot": "r59"
+        },
+        "path": "inputs/public/inih/r59/ini_parse_stream_excerpt.c",
+        "weight": 1
+      },
+      {
+        "anchor": "while (offset == max_line - 1 && line[offset - 1] != '\\n')",
+        "id": "before-context",
+        "kind": "code",
+        "metadata": {
+          "file": "inputs/public/inih/r58/ini_parse_stream_excerpt.c",
+          "host": "inih",
+          "project": "inih",
+          "snapshot": "r58"
+        },
+        "path": "inputs/public/inih/r58/ini_parse_stream_excerpt.c",
+        "weight": 1
+      },
+      {
+        "anchor": "while (offset == max_line - 1 && line[offset - 1] != '\\n')",
+        "id": "after-context",
+        "kind": "code",
+        "metadata": {
+          "file": "inputs/public/inih/r59/ini_parse_stream_excerpt.c",
+          "host": "inih",
+          "project": "inih",
+          "snapshot": "r59"
+        },
+        "path": "inputs/public/inih/r59/ini_parse_stream_excerpt.c",
+        "weight": 1
+      },
+      {
+        "anchor": "int ini_parse_stream(ini_reader reader, void* stream, ini_handler handler,",
+        "id": "shared-code",
+        "kind": "code",
+        "metadata": {
+          "file": "inputs/public/inih/r59/ini_parse_stream_excerpt.c",
+          "host": "inih",
+          "project": "inih",
+          "snapshot": "r59"
+        },
+        "path": "inputs/public/inih/r59/ini_parse_stream_excerpt.c",
+        "weight": 1
+      },
+      {
+        "anchor": null,
+        "id": "history-change",
+        "kind": "change",
+        "metadata": {
+          "after_anchor": "char abyss[16];  /* Used to consume input when a line is too long. */",
+          "after_file": "inputs/public/inih/r59/ini_parse_stream_excerpt.c",
+          "after_origin": "after-feature",
+          "after_snapshot": "r59",
+          "before_anchor": "if (max_line >= INI_MAX_LINE)\n                break;",
+          "before_file": "inputs/public/inih/r58/ini_parse_stream_excerpt.c",
+          "before_origin": "before-feature",
+          "before_snapshot": "r58",
+          "host": "inih",
+          "project": "inih"
+        },
+        "path": null,
+        "weight": 3
+      },
+      {
+        "anchor": null,
+        "id": "entity-bridge",
+        "kind": "bridge",
+        "metadata": {
+          "after_origin": "after-feature",
+          "after_snapshot": "r59",
+          "assumption": "the referenced routine denotes one evolving entity across the two tagged snapshots",
+          "before_origin": "before-feature",
+          "before_snapshot": "r58",
+          "host": "inih",
+          "project": "inih"
+        },
+        "path": null,
+        "weight": 2
+      }
+    ],
+    "positive": "policy:inih:consume-overlong-line",
+    "rules": [
+      {
+        "body": [
+          "private-positive:inih",
+          "bridge:inih"
+        ],
+        "head": "policy:inih:consume-overlong-line",
+        "name": "positive-private-to-policy"
+      },
+      {
+        "body": [
+          "private-negative:inih",
+          "bridge:inih"
+        ],
+        "head": "not:policy:inih:consume-overlong-line",
+        "name": "negative-private-to-policy"
+      },
+      {
+        "body": [
+          "shared-positive:inih",
+          "bridge:inih"
+        ],
+        "head": "policy:inih:consume-overlong-line",
+        "name": "positive-shared-to-policy"
+      },
+      {
+        "body": [
+          "shared-negative:inih",
+          "bridge:inih"
+        ],
+        "head": "not:policy:inih:consume-overlong-line",
+        "name": "negative-shared-to-policy"
+      }
+    ]
+  },
+  "schema": "joint-contradiction-certificate-v1",
+  "solution": {
+    "algorithm": "exact-antichain",
+    "cost": 6,
+    "metrics": {
+      "iterations": 2,
+      "negative_depth": 2,
+      "negative_frontier": 2,
+      "positive_depth": 2,
+      "positive_frontier": 2,
+      "total_frontier_entries": 9
+    },
+    "negative_proof": {
+      "literal": "not:policy:inih:consume-overlong-line",
+      "premises": [
+        {
+          "literal": "private-negative:inih",
+          "premises": [],
+          "step": "negative-private",
+          "support": [
+            "before-context",
+            "before-feature"
+          ]
+        },
+        {
+          "literal": "bridge:inih",
+          "premises": [],
+          "step": "entity-bridge-fact",
+          "support": [
+            "entity-bridge"
+          ]
+        }
+      ],
+      "step": "negative-private-to-policy",
+      "support": [
+        "before-context",
+        "before-feature",
+        "entity-bridge"
+      ]
+    },
+    "positive_proof": {
+      "literal": "policy:inih:consume-overlong-line",
+      "premises": [
+        {
+          "literal": "private-positive:inih",
+          "premises": [],
+          "step": "positive-private",
+          "support": [
+            "after-context",
+            "after-feature"
+          ]
+        },
+        {
+          "literal": "bridge:inih",
+          "premises": [],
+          "step": "entity-bridge-fact",
+          "support": [
+            "entity-bridge"
+          ]
+        }
+      ],
+      "step": "positive-private-to-policy",
+      "support": [
+        "after-context",
+        "after-feature",
+        "entity-bridge"
+      ]
+    },
+    "selected": [
+      "after-context",
+      "after-feature",
+      "before-context",
+      "before-feature",
+      "entity-bridge"
+    ],
+    "status": "certificate"
+  }
+}

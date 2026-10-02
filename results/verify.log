@@ -1,0 +1,45 @@
+{
+  "external_independent_review": false,
+  "family": {
+    "family_cases": 20,
+    "largest_family_sites": 80,
+    "temporal_valuations_enumerated": 4
+  },
+  "horn": {
+    "fixed_formula_certificates": 13,
+    "formula_2": 256,
+    "formula_3": 6196,
+    "unsatisfiable_2": 200,
+    "unsatisfiable_3": 1917
+  },
+  "population": {
+    "full_valid": 6806,
+    "pinned_repeat_not_inclusion_minimal": 0,
+    "remined_repeat_not_inclusion_minimal": 538,
+    "remined_singlepass_not_one_minimal": 806,
+    "rows": 32790,
+    "subset_truth_checks": 3359220
+  },
+  "source": {
+    "certificates": {
+      "pinned": {
+        "inclusion_minimal": true,
+        "minimum_size": 3,
+        "mode": "pinned",
+        "one_minimal": true,
+        "selected_size": 3,
+        "valid": true
+      },
+      "remined": {
+        "inclusion_minimal": false,
+        "minimum_size": 1,
+        "mode": "remined",
+        "one_minimal": true,
+        "selected_size": 3,
+        "valid": true
+      }
+    },
+    "source_files": 10
+  },
+  "status": "finite_replay_passed"
+}

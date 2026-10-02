@@ -1,0 +1,155 @@
+{
+  "features": [
+    1,
+    2,
+    3
+  ],
+  "results": [
+    {
+      "greedy": [
+        0,
+        1,
+        2
+      ],
+      "minimum": [
+        2
+      ],
+      "mode": "remined",
+      "replay": {
+        "inclusion_minimal": false,
+        "minimum_size": 1,
+        "mode": "remined",
+        "one_minimal": true,
+        "selected_size": 3,
+        "valid": true
+      },
+      "subsets": [
+        {
+          "indices": [],
+          "valid": false
+        },
+        {
+          "indices": [
+            0
+          ],
+          "valid": false
+        },
+        {
+          "indices": [
+            1
+          ],
+          "valid": false
+        },
+        {
+          "indices": [
+            2
+          ],
+          "valid": true
+        },
+        {
+          "indices": [
+            0,
+            1
+          ],
+          "valid": false
+        },
+        {
+          "indices": [
+            0,
+            2
+          ],
+          "valid": false
+        },
+        {
+          "indices": [
+            1,
+            2
+          ],
+          "valid": false
+        },
+        {
+          "indices": [
+            0,
+            1,
+            2
+          ],
+          "valid": true
+        }
+      ]
+    },
+    {
+      "greedy": [
+        0,
+        1,
+        2
+      ],
+      "minimum": [
+        0,
+        1,
+        2
+      ],
+      "mode": "pinned",
+      "replay": {
+        "inclusion_minimal": true,
+        "minimum_size": 3,
+        "mode": "pinned",
+        "one_minimal": true,
+        "selected_size": 3,
+        "valid": true
+      },
+      "subsets": [
+        {
+          "indices": [],
+          "valid": false
+        },
+        {
+          "indices": [
+            0
+          ],
+          "valid": false
+        },
+        {
+          "indices": [
+            1
+          ],
+          "valid": false
+        },
+        {
+          "indices": [
+            2
+          ],
+          "valid": false
+        },
+        {
+          "indices": [
+            0,
+            1
+          ],
+          "valid": false
+        },
+        {
+          "indices": [
+            0,
+            2
+          ],
+          "valid": false
+        },
+        {
+          "indices": [
+            1,
+            2
+          ],
+          "valid": false
+        },
+        {
+          "indices": [
+            0,
+            1,
+            2
+          ],
+          "valid": true
+        }
+      ]
+    }
+  ]
+}

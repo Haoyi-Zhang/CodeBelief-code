@@ -1,0 +1,96 @@
+{
+  "by_mode": {
+    "pinned": {
+      "configurations": 16395,
+      "full_valid": 3403,
+      "repeat_larger_than_minimum": 464
+    },
+    "remined": {
+      "configurations": 16395,
+      "full_valid": 3403,
+      "invalid_full_with_valid_subset": 11962,
+      "repeat_larger_than_minimum": 802,
+      "repeat_not_inclusion_minimal": 538,
+      "singlepass_not_one_minimal": 806
+    }
+  },
+  "by_size": [
+    {
+      "configurations": 30,
+      "full_valid": 10,
+      "n": 1,
+      "subset_checks": 60
+    },
+    {
+      "configurations": 90,
+      "full_valid": 22,
+      "n": 2,
+      "subset_checks": 360
+    },
+    {
+      "configurations": 270,
+      "full_valid": 58,
+      "n": 3,
+      "repeat_failures": 6,
+      "singlepass_failures": 2,
+      "subset_checks": 2160
+    },
+    {
+      "configurations": 810,
+      "full_valid": 214,
+      "n": 4,
+      "repeat_failures": 24,
+      "singlepass_failures": 16,
+      "subset_checks": 12960
+    },
+    {
+      "configurations": 2430,
+      "full_valid": 470,
+      "n": 5,
+      "repeat_failures": 44,
+      "singlepass_failures": 36,
+      "subset_checks": 77760
+    },
+    {
+      "configurations": 7290,
+      "full_valid": 1906,
+      "n": 6,
+      "repeat_failures": 198,
+      "singlepass_failures": 244,
+      "subset_checks": 466560
+    },
+    {
+      "configurations": 21870,
+      "full_valid": 4126,
+      "n": 7,
+      "repeat_failures": 266,
+      "singlepass_failures": 508,
+      "subset_checks": 2799360
+    }
+  ],
+  "horn": [
+    {
+      "atoms": 2,
+      "discrepancies": 0,
+      "formula_count": 256,
+      "maximum_subset_size": null,
+      "universe_clauses": 8,
+      "unsatisfiable_count": 200
+    },
+    {
+      "atoms": 3,
+      "discrepancies": 0,
+      "formula_count": 6196,
+      "maximum_subset_size": 4,
+      "universe_clauses": 20,
+      "unsatisfiable_count": 1917
+    }
+  ],
+  "population_totals": {
+    "configurations": 32790,
+    "full_valid": 6806,
+    "repeat_failures": 538,
+    "singlepass_failures": 806,
+    "subset_checks": 3359220
+  }
+}

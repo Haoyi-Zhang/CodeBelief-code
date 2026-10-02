@@ -1,0 +1,309 @@
+[
+  {
+    "atoms": 2,
+    "clauses": [
+      {
+        "body": [],
+        "head": null,
+        "name": "c02"
+      }
+    ],
+    "deletion_models": [
+      [
+        false,
+        false
+      ]
+    ],
+    "trace": [
+      "c02"
+    ]
+  },
+  {
+    "atoms": 2,
+    "clauses": [
+      {
+        "body": [],
+        "head": null,
+        "name": "c02"
+      }
+    ],
+    "deletion_models": [
+      [
+        false,
+        false
+      ]
+    ],
+    "trace": [
+      "c02"
+    ]
+  },
+  {
+    "atoms": 2,
+    "clauses": [
+      {
+        "body": [],
+        "head": 0,
+        "name": "c00"
+      },
+      {
+        "body": [
+          0
+        ],
+        "head": null,
+        "name": "c04"
+      }
+    ],
+    "deletion_models": [
+      [
+        false,
+        false
+      ],
+      [
+        true,
+        false
+      ]
+    ],
+    "trace": [
+      "c00",
+      "c04"
+    ]
+  },
+  {
+    "atoms": 2,
+    "clauses": [
+      {
+        "body": [],
+        "head": null,
+        "name": "c02"
+      }
+    ],
+    "deletion_models": [
+      [
+        false,
+        false
+      ]
+    ],
+    "trace": [
+      "c02"
+    ]
+  },
+  {
+    "atoms": 2,
+    "clauses": [
+      {
+        "body": [],
+        "head": 1,
+        "name": "c01"
+      },
+      {
+        "body": [
+          1
+        ],
+        "head": null,
+        "name": "c06"
+      }
+    ],
+    "deletion_models": [
+      [
+        false,
+        false
+      ],
+      [
+        false,
+        true
+      ]
+    ],
+    "trace": [
+      "c01",
+      "c06"
+    ]
+  },
+  {
+    "atoms": 2,
+    "clauses": [
+      {
+        "body": [],
+        "head": null,
+        "name": "c02"
+      }
+    ],
+    "deletion_models": [
+      [
+        false,
+        false
+      ]
+    ],
+    "trace": [
+      "c02"
+    ]
+  },
+  {
+    "atoms": 2,
+    "clauses": [
+      {
+        "body": [],
+        "head": null,
+        "name": "c02"
+      }
+    ],
+    "deletion_models": [
+      [
+        false,
+        false
+      ]
+    ],
+    "trace": [
+      "c02"
+    ]
+  },
+  {
+    "atoms": 2,
+    "clauses": [
+      {
+        "body": [],
+        "head": null,
+        "name": "c02"
+      }
+    ],
+    "deletion_models": [
+      [
+        false,
+        false
+      ]
+    ],
+    "trace": [
+      "c02"
+    ]
+  },
+  {
+    "atoms": 2,
+    "clauses": [
+      {
+        "body": [],
+        "head": null,
+        "name": "c02"
+      }
+    ],
+    "deletion_models": [
+      [
+        false,
+        false
+      ]
+    ],
+    "trace": [
+      "c02"
+    ]
+  },
+  {
+    "atoms": 2,
+    "clauses": [
+      {
+        "body": [],
+        "head": null,
+        "name": "c02"
+      }
+    ],
+    "deletion_models": [
+      [
+        false,
+        false
+      ]
+    ],
+    "trace": [
+      "c02"
+    ]
+  },
+  {
+    "atoms": 2,
+    "clauses": [
+      {
+        "body": [],
+        "head": null,
+        "name": "c02"
+      }
+    ],
+    "deletion_models": [
+      [
+        false,
+        false
+      ]
+    ],
+    "trace": [
+      "c02"
+    ]
+  },
+  {
+    "atoms": 2,
+    "clauses": [
+      {
+        "body": [],
+        "head": 0,
+        "name": "c00"
+      },
+      {
+        "body": [
+          0
+        ],
+        "head": null,
+        "name": "c04"
+      }
+    ],
+    "deletion_models": [
+      [
+        false,
+        false
+      ],
+      [
+        true,
+        false
+      ]
+    ],
+    "trace": [
+      "c00",
+      "c04"
+    ]
+  },
+  {
+    "atoms": 2,
+    "clauses": [
+      {
+        "body": [],
+        "head": 0,
+        "name": "premise"
+      },
+      {
+        "body": [
+          0
+        ],
+        "head": 1,
+        "name": "implication"
+      },
+      {
+        "body": [
+          1
+        ],
+        "head": null,
+        "name": "denial"
+      }
+    ],
+    "deletion_models": [
+      [
+        false,
+        false
+      ],
+      [
+        true,
+        false
+      ],
+      [
+        true,
+        true
+      ]
+    ],
+    "trace": [
+      "premise",
+      "implication",
+      "denial"
+    ]
+  }
+]

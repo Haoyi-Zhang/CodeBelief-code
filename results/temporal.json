@@ -1,0 +1,9 @@
+{
+  "with_persistence_bridge_models": [],
+  "without_bridge_models": [
+    [
+      true,
+      false
+    ]
+  ]
+}

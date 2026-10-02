@@ -1,0 +1,597 @@
+{
+  "experimental_runs": [
+    {
+      "purpose": "initial discriminating pilot",
+      "chunks": [
+        {
+          "task": "tests",
+          "exit_code": 0,
+          "wall_seconds": 0.7719136089999665,
+          "cpu_seconds": 0.758256,
+          "child_peak_rss_kib_cumulative": 93988,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "pilot",
+          "exit_code": 0,
+          "wall_seconds": 0.7708585929999572,
+          "cpu_seconds": 0.72024,
+          "child_peak_rss_kib_cumulative": 93988,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        }
+      ]
+    },
+    {
+      "purpose": "initial finite sweep",
+      "chunks": [
+        {
+          "task": "population-1",
+          "exit_code": 0,
+          "wall_seconds": 0.7721408069999143,
+          "cpu_seconds": 0.7308679999999999,
+          "child_peak_rss_kib_cumulative": 93484,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "population-2",
+          "exit_code": 0,
+          "wall_seconds": 0.7720602350000263,
+          "cpu_seconds": 0.7425600000000001,
+          "child_peak_rss_kib_cumulative": 93484,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "population-3",
+          "exit_code": 0,
+          "wall_seconds": 0.7739199569999755,
+          "cpu_seconds": 0.7532559999999999,
+          "child_peak_rss_kib_cumulative": 93500,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "population-4",
+          "exit_code": 0,
+          "wall_seconds": 0.7723951630000556,
+          "cpu_seconds": 0.7494140000000002,
+          "child_peak_rss_kib_cumulative": 93604,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "population-5",
+          "exit_code": 0,
+          "wall_seconds": 1.0231726380000055,
+          "cpu_seconds": 1.0130309999999998,
+          "child_peak_rss_kib_cumulative": 93744,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "population-6",
+          "exit_code": 0,
+          "wall_seconds": 2.376153320999947,
+          "cpu_seconds": 2.364703,
+          "child_peak_rss_kib_cumulative": 94128,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "population-7",
+          "exit_code": 0,
+          "wall_seconds": 11.461530104000076,
+          "cpu_seconds": 11.434026000000001,
+          "child_peak_rss_kib_cumulative": 94256,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "horn",
+          "exit_code": 0,
+          "wall_seconds": 0.8791871019999462,
+          "cpu_seconds": 0.8594299999999999,
+          "child_peak_rss_kib_cumulative": 94256,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "family",
+          "exit_code": 0,
+          "wall_seconds": 0.7219856279999703,
+          "cpu_seconds": 0.7175819999999985,
+          "child_peak_rss_kib_cumulative": 94256,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        }
+      ]
+    },
+    {
+      "purpose": "complete truth-vector and formula replay",
+      "chunks": [
+        {
+          "task": "tests",
+          "exit_code": 0,
+          "wall_seconds": 0.7723353860001225,
+          "cpu_seconds": 0.7591600000000001,
+          "parent_peak_rss_kib": 92840,
+          "child_peak_rss_kib_cumulative": 94248,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "pilot",
+          "exit_code": 0,
+          "wall_seconds": 0.7720239140001013,
+          "cpu_seconds": 0.7381499999999999,
+          "parent_peak_rss_kib": 92840,
+          "child_peak_rss_kib_cumulative": 94248,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "population-1",
+          "exit_code": 0,
+          "wall_seconds": 0.7713123230000747,
+          "cpu_seconds": 0.7549199999999998,
+          "parent_peak_rss_kib": 92840,
+          "child_peak_rss_kib_cumulative": 94248,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "population-2",
+          "exit_code": 0,
+          "wall_seconds": 0.7746718259998033,
+          "cpu_seconds": 0.7392280000000001,
+          "parent_peak_rss_kib": 92840,
+          "child_peak_rss_kib_cumulative": 94248,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "population-3",
+          "exit_code": 0,
+          "wall_seconds": 0.7711227269999199,
+          "cpu_seconds": 0.7536839999999998,
+          "parent_peak_rss_kib": 92840,
+          "child_peak_rss_kib_cumulative": 94248,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "population-4",
+          "exit_code": 0,
+          "wall_seconds": 0.820993936999912,
+          "cpu_seconds": 0.7696279999999995,
+          "parent_peak_rss_kib": 92840,
+          "child_peak_rss_kib_cumulative": 94248,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "population-5",
+          "exit_code": 0,
+          "wall_seconds": 1.0733101799999076,
+          "cpu_seconds": 1.0503480000000005,
+          "parent_peak_rss_kib": 92840,
+          "child_peak_rss_kib_cumulative": 94248,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "population-6",
+          "exit_code": 0,
+          "wall_seconds": 2.4872939429999406,
+          "cpu_seconds": 2.4374849999999992,
+          "parent_peak_rss_kib": 92840,
+          "child_peak_rss_kib_cumulative": 94248,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "population-7",
+          "exit_code": 0,
+          "wall_seconds": 11.153689420999854,
+          "cpu_seconds": 11.111910000000002,
+          "parent_peak_rss_kib": 92840,
+          "child_peak_rss_kib_cumulative": 94248,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "horn",
+          "exit_code": 0,
+          "wall_seconds": 0.9224571500001275,
+          "cpu_seconds": 0.8891410000000023,
+          "parent_peak_rss_kib": 92840,
+          "child_peak_rss_kib_cumulative": 99876,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "family",
+          "exit_code": 0,
+          "wall_seconds": 0.721310714999845,
+          "cpu_seconds": 0.717698,
+          "parent_peak_rss_kib": 92840,
+          "child_peak_rss_kib_cumulative": 99876,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "verify",
+          "exit_code": 0,
+          "wall_seconds": 4.888999564000187,
+          "cpu_seconds": 4.883519000000001,
+          "parent_peak_rss_kib": 92840,
+          "child_peak_rss_kib_cumulative": 103084,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        }
+      ]
+    },
+    {
+      "purpose": "retained experiment with strengthened raw replay",
+      "chunks": [
+        {
+          "task": "tests",
+          "exit_code": 0,
+          "wall_seconds": 0.7225030230001721,
+          "cpu_seconds": 0.7003309999999998,
+          "parent_peak_rss_kib": 92840,
+          "child_peak_rss_kib_cumulative": 94120,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "pilot",
+          "exit_code": 0,
+          "wall_seconds": 0.7240032190002239,
+          "cpu_seconds": 0.693829,
+          "parent_peak_rss_kib": 92840,
+          "child_peak_rss_kib_cumulative": 94120,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "population-1",
+          "exit_code": 0,
+          "wall_seconds": 0.7221029790002831,
+          "cpu_seconds": 0.6696920000000004,
+          "parent_peak_rss_kib": 92840,
+          "child_peak_rss_kib_cumulative": 94120,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "population-2",
+          "exit_code": 0,
+          "wall_seconds": 0.7216404929999953,
+          "cpu_seconds": 0.7060320000000001,
+          "parent_peak_rss_kib": 92840,
+          "child_peak_rss_kib_cumulative": 94120,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "population-3",
+          "exit_code": 0,
+          "wall_seconds": 0.721609819999685,
+          "cpu_seconds": 0.7022799999999996,
+          "parent_peak_rss_kib": 92840,
+          "child_peak_rss_kib_cumulative": 94120,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "population-4",
+          "exit_code": 0,
+          "wall_seconds": 0.7734773980000682,
+          "cpu_seconds": 0.7691250000000005,
+          "parent_peak_rss_kib": 92840,
+          "child_peak_rss_kib_cumulative": 94120,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "population-5",
+          "exit_code": 0,
+          "wall_seconds": 1.02177655100013,
+          "cpu_seconds": 0.9716649999999992,
+          "parent_peak_rss_kib": 92840,
+          "child_peak_rss_kib_cumulative": 94120,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "population-6",
+          "exit_code": 0,
+          "wall_seconds": 2.3765944259998832,
+          "cpu_seconds": 2.3540069999999997,
+          "parent_peak_rss_kib": 92840,
+          "child_peak_rss_kib_cumulative": 94124,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "population-7",
+          "exit_code": 0,
+          "wall_seconds": 10.70756768900037,
+          "cpu_seconds": 10.695324,
+          "parent_peak_rss_kib": 92840,
+          "child_peak_rss_kib_cumulative": 94380,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "horn",
+          "exit_code": 0,
+          "wall_seconds": 1.1281157660000645,
+          "cpu_seconds": 1.1002960000000046,
+          "parent_peak_rss_kib": 92840,
+          "child_peak_rss_kib_cumulative": 99880,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "family",
+          "exit_code": 0,
+          "wall_seconds": 0.7729658949997429,
+          "cpu_seconds": 0.730759999999998,
+          "parent_peak_rss_kib": 92840,
+          "child_peak_rss_kib_cumulative": 99880,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "verify",
+          "exit_code": 0,
+          "wall_seconds": 4.5898545099998955,
+          "cpu_seconds": 4.570530999999997,
+          "parent_peak_rss_kib": 92840,
+          "child_peak_rss_kib_cumulative": 103344,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "report",
+          "exit_code": 0,
+          "wall_seconds": 0.870571917000234,
+          "cpu_seconds": 0.8266640000000005,
+          "parent_peak_rss_kib": 92840,
+          "child_peak_rss_kib_cumulative": 103344,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        }
+      ]
+    },
+    {
+      "purpose": "clean extracted repository reproduction",
+      "chunks": [
+        {
+          "task": "tests",
+          "exit_code": 0,
+          "wall_seconds": 0.7217399500000283,
+          "cpu_seconds": 0.7030860000000002,
+          "parent_peak_rss_kib": 92848,
+          "child_peak_rss_kib_cumulative": 94252,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "pilot",
+          "exit_code": 0,
+          "wall_seconds": 0.7235212079999656,
+          "cpu_seconds": 0.6863220000000002,
+          "parent_peak_rss_kib": 92848,
+          "child_peak_rss_kib_cumulative": 94252,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "population-1",
+          "exit_code": 0,
+          "wall_seconds": 0.7213914189997013,
+          "cpu_seconds": 0.7060660000000001,
+          "parent_peak_rss_kib": 92848,
+          "child_peak_rss_kib_cumulative": 94252,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "population-2",
+          "exit_code": 0,
+          "wall_seconds": 0.7227688450002461,
+          "cpu_seconds": 0.6959289999999997,
+          "parent_peak_rss_kib": 92848,
+          "child_peak_rss_kib_cumulative": 94252,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "population-3",
+          "exit_code": 0,
+          "wall_seconds": 0.7226702020002449,
+          "cpu_seconds": 0.6970479999999997,
+          "parent_peak_rss_kib": 92848,
+          "child_peak_rss_kib_cumulative": 94252,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "population-4",
+          "exit_code": 0,
+          "wall_seconds": 0.773673189999954,
+          "cpu_seconds": 0.745916000000001,
+          "parent_peak_rss_kib": 92848,
+          "child_peak_rss_kib_cumulative": 94252,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "population-5",
+          "exit_code": 0,
+          "wall_seconds": 1.0259933580000506,
+          "cpu_seconds": 0.975185,
+          "parent_peak_rss_kib": 92848,
+          "child_peak_rss_kib_cumulative": 94252,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "population-6",
+          "exit_code": 0,
+          "wall_seconds": 2.4765563040000416,
+          "cpu_seconds": 2.4570290000000012,
+          "parent_peak_rss_kib": 92848,
+          "child_peak_rss_kib_cumulative": 94252,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "population-7",
+          "exit_code": 0,
+          "wall_seconds": 10.757616782999776,
+          "cpu_seconds": 10.743496999999998,
+          "parent_peak_rss_kib": 92848,
+          "child_peak_rss_kib_cumulative": 94376,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "horn",
+          "exit_code": 0,
+          "wall_seconds": 0.9250275999997939,
+          "cpu_seconds": 0.8727530000000003,
+          "parent_peak_rss_kib": 92848,
+          "child_peak_rss_kib_cumulative": 99888,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "family",
+          "exit_code": 0,
+          "wall_seconds": 0.7226706710002873,
+          "cpu_seconds": 0.715477000000003,
+          "parent_peak_rss_kib": 92848,
+          "child_peak_rss_kib_cumulative": 99888,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "verify",
+          "exit_code": 0,
+          "wall_seconds": 4.5853125089997775,
+          "cpu_seconds": 4.5524000000000004,
+          "parent_peak_rss_kib": 92848,
+          "child_peak_rss_kib_cumulative": 103088,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "report",
+          "exit_code": 0,
+          "wall_seconds": 0.823173493000013,
+          "cpu_seconds": 0.7959810000000014,
+          "parent_peak_rss_kib": 92848,
+          "child_peak_rss_kib_cumulative": 103088,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        }
+      ]
+    },
+    {
+      "purpose": "documented focused replay, report, and resume from clean extraction",
+      "chunks": [
+        {
+          "task": "focused-replay",
+          "command": "python3 verify.py --results results",
+          "exit_code": 0,
+          "wall_seconds": 4.6258925459997045,
+          "cpu_seconds": 4.620124,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "focused-report",
+          "command": "python3 report.py --results results --out ../contradiction-tables",
+          "exit_code": 0,
+          "wall_seconds": 0.7854802540000492,
+          "cpu_seconds": 0.7827249999999997,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        },
+        {
+          "task": "resume",
+          "command": "python3 reproduce.py --out ../contradiction-reproduction --resume",
+          "exit_code": 0,
+          "wall_seconds": 0.7133097949999865,
+          "cpu_seconds": 0.7104789999999996,
+          "workers": 1,
+          "address_space_limit_bytes": 536870912,
+          "wall_timeout_seconds": 32
+        }
+      ]
+    }
+  ],
+  "total_recorded_child_cpu_seconds": 103.39878999999999,
+  "accounting_scope": "Retained runner-measured experiments plus clean-extraction reproduction and focused command checks. Editing, web research, TeX compilation, rendering, and packaging are not experimental CPU measurements.",
+  "ceiling_cpu_seconds": 28800,
+  "protected_repair_reserve_seconds": 7200,
+  "workers": 1
+}

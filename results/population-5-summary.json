@@ -1,0 +1,10 @@
+{
+  "full_valid": 470,
+  "n": 5,
+  "ordered_populations": 243,
+  "pinned_repeat_not_inclusion_minimal": 0,
+  "remined_repeat_not_inclusion_minimal": 44,
+  "remined_singlepass_not_one_minimal": 36,
+  "rows": 2430,
+  "subset_truth_checks": 77760
+}

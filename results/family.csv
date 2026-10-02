@@ -1,0 +1,21 @@
+numerator,denominator,k,sites,positive_only,negative_only,both,one_minimal_size,minimum_size,deletion_checks,method
+2,3,1,3,1,1,1,3,1,3,all immediate deletions and one singleton; no full enumeration
+2,3,2,6,2,2,2,6,1,6,all immediate deletions and one singleton; no full enumeration
+2,3,3,9,3,3,3,9,1,9,all immediate deletions and one singleton; no full enumeration
+2,3,8,24,8,8,8,24,1,24,all immediate deletions and one singleton; no full enumeration
+3,4,1,4,1,1,2,4,1,4,all immediate deletions and one singleton; no full enumeration
+3,4,2,8,2,2,4,8,1,8,all immediate deletions and one singleton; no full enumeration
+3,4,3,12,3,3,6,12,1,12,all immediate deletions and one singleton; no full enumeration
+3,4,8,32,8,8,16,32,1,32,all immediate deletions and one singleton; no full enumeration
+4,5,1,5,1,1,3,5,1,5,all immediate deletions and one singleton; no full enumeration
+4,5,2,10,2,2,6,10,1,10,all immediate deletions and one singleton; no full enumeration
+4,5,3,15,3,3,9,15,1,15,all immediate deletions and one singleton; no full enumeration
+4,5,8,40,8,8,24,40,1,40,all immediate deletions and one singleton; no full enumeration
+3,5,1,5,2,2,1,5,1,5,all immediate deletions and one singleton; no full enumeration
+3,5,2,10,4,4,2,10,1,10,all immediate deletions and one singleton; no full enumeration
+3,5,3,15,6,6,3,15,1,15,all immediate deletions and one singleton; no full enumeration
+3,5,8,40,16,16,8,40,1,40,all immediate deletions and one singleton; no full enumeration
+7,10,1,10,3,3,4,10,1,10,all immediate deletions and one singleton; no full enumeration
+7,10,2,20,6,6,8,20,1,20,all immediate deletions and one singleton; no full enumeration
+7,10,3,30,9,9,12,30,1,30,all immediate deletions and one singleton; no full enumeration
+7,10,8,80,24,24,32,80,1,80,all immediate deletions and one singleton; no full enumeration

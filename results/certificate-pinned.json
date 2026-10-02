@@ -1,0 +1,26 @@
+{
+  "census": {
+    "alpha": 1,
+    "beta": 2,
+    "gamma": 3
+  },
+  "claims": {
+    "inclusion_minimal": true,
+    "minimum_cardinality": true,
+    "one_minimal": true,
+    "valid": true
+  },
+  "kind": "population-selection",
+  "mode": "pinned",
+  "selected": [
+    "alpha",
+    "beta",
+    "gamma"
+  ],
+  "snapshot": 1,
+  "source": "inputs/history/state_01.c",
+  "threshold": [
+    2,
+    3
+  ]
+}
