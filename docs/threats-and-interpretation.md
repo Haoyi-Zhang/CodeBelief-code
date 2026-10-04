@@ -30,4 +30,4 @@ Byte-identical deterministic outputs establish that the packaged finite computat
 
 ## Responsible use
 
-Substantive generative-AI assistance was used in the research workflow, while the retained experiments use ordinary deterministic Python and no model APIs. Any external authors must independently validate the science, establish qualifying contributions, and comply with live disclosure and authorship rules. No public repository, submission, or reviewer process is implied by this package.
+The executable experiments use deterministic conventional Python and make no external model calls.

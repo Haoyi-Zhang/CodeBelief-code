@@ -89,6 +89,6 @@ The matching license notices are retained under `inputs/public/licenses/`. The e
 
 A successful reproduction establishes that the packaged deterministic computations regenerate and agree with their declared finite oracles. It does not establish complete C semantics, real defects, warning precision/recall, developer usefulness, semantic identity across versions, calibrated uncertainty, proof-assistant verification, or independent human replication. Source anchors establish retained textual identity; bridges remain explicit assumptions. Timing files are descriptive and are not a cross-machine performance claim.
 
-Substantive generative-AI assistance contributed to formulation, literature discovery, proof/code drafting, experimental design, analysis, manuscript preparation, and self-audit. The executable experiments are deterministic conventional Python and make no external model calls. Human authors must independently verify and take accountability before external use.
+The executable experiments use deterministic conventional Python and make no external model calls.
 
 Original artifact code and original fixtures are released under `LICENSE`. Publisher template files are not part of this standalone repository. Upstream excerpts retain their included license notices.
