@@ -111,15 +111,20 @@ for literal `l`, and `I_l` the total number of successful insertions including
 entries later dominated.  For rule `r` with body size `k_r` and head `h_r`, a
 pass streams at most `product_l g_l` premise tuples.  Building a candidate
 union takes `O(k_r n)` set work; insertion scans up to `g_h_r` head supports,
-with `O(n)` subset work each.  A coarse pass bound is therefore
+with `O(n)` subset work each.  A coarse bound for support-union and subset-test work in a pass is therefore
 
 ```
 O(n * sum_r ((k_r + g_h_r) * product_{l in body(r)} g_l)).
 ```
 
-At most `1 + sum_l I_l` productive-plus-final passes occur, and target pairing
-costs `O(n g_p g_notp)`.  The implementation materializes sorted premise lists
-but streams their Cartesian product.  It does not cache all unions or costs.
+The implementation scans all represented frontier sizes after every successful
+insertion for the cap check. With `L` represented literal frontiers this adds
+`O(L I_pass)` per pass and `O(L I_init)` during fact initialization. Sorting,
+canonical proof-key construction, and encoded-weight arithmetic are additional
+costs not included in the displayed propagation-kernel bound.
+At most `1 + sum_l I_l` productive-plus-final passes occur. Target pairing uses
+`O(n g_p g_notp)` set work plus ordering. Sorted premise lists are materialized
+and their Cartesian product streamed, with no all-union or cost cache.
 Peak support storage is `O(n sum_l g_l)` plus `O(k_r n)` transient tuple and
 candidate space.  Each retained support stores one canonical backpointer to
 premise proof objects; the selected proofs are recursively expanded in JSON,
