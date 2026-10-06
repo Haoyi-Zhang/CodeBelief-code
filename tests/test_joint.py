@@ -295,6 +295,28 @@ class PublicHostTests(unittest.TestCase):
         with self.assertRaises(ReplayError):
             replay_certificate(document, ROOT)
 
+    def test_replay_rejects_relabelled_project_and_host(self):
+        document = self._document()
+        # Consistent cross-record labels are insufficient: cJSON text must
+        # still be bound to the cJSON record in the retained input manifest.
+        for origin in document["problem"]["origins"]:
+            origin["metadata"]["project"] = "inih"
+            origin["metadata"]["host"] = "inih"
+        with self.assertRaisesRegex(ReplayError, "retained manifest"):
+            replay_certificate(document, ROOT)
+
+    def test_replay_rejects_path_component_as_snapshot(self):
+        document = self._document()
+        for origin in document["problem"]["origins"]:
+            metadata = origin["metadata"]
+            if origin["kind"] == "code":
+                metadata["snapshot"] = "inputs" if metadata["snapshot"] == "v1.7.17" else "public"
+            else:
+                metadata["before_snapshot"] = "inputs"
+                metadata["after_snapshot"] = "public"
+        with self.assertRaisesRegex(ReplayError, "retained manifest"):
+            replay_certificate(document, ROOT)
+
     def test_replay_rejects_absent_anchor(self):
         document = self._document()
         document["problem"]["origins"][0]["anchor"] = "not in source"

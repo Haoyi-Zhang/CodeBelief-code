@@ -14,7 +14,7 @@ python3 reproduce.py --out ../contradiction-reproduction
 
 The output directory must be empty. The runner uses one worker and one available CPU core. Each child receives a 512 MiB address-space limit, a 30/31-second CPU limit, and a 32-second wall limit. It executes:
 
-1. 62 unit-test methods;
+1. 66 unit-test methods;
 2. the original selection-semantics pilot and seven exact population chunks;
 3. 6,452 ordinary-Horn Boolean-oracle checks;
 4. the re-mined/pinned formula families and independent replay;
@@ -27,7 +27,7 @@ The output directory must be empty. The runner uses one worker and one available
 
 On a full successful run, every file named by `results/expected-files.json` is regenerated and compared byte for byte with the retained evidence. There are 85 deterministic files. Measurements and logs are not expected to be byte-identical.
 
-Interrupted runs can resume only from a valid retained measurement file. A recorded zero exit code is not enough: before skipping a task, the runner revalidates every declared output byte-for-byte against retained evidence and also validates declared dependencies:
+Interrupted runs can resume only from a valid retained measurement file. A recorded zero exit code is not enough: before skipping a task, the runner checks a SHA-256 binding of executable source and retained input membership/bytes, revalidates every declared output against retained evidence, and validates declared dependencies. Records predating the binding force recomputation:
 
 ```sh
 python3 reproduce.py --out ../contradiction-reproduction --resume
@@ -65,7 +65,7 @@ The older `src/model.py`, `src/experiment.py`, `src/replay.py`, and `verify.py` 
 | Scaling family | 256 alternatives per side; 1,024 origins; 65,536 candidate support pairs |
 | Moving-predicate census | 32,790 configurations and 3,359,220 subset judgments |
 | Ordinary-Horn census | 6,452 formulas; 0 Boolean-oracle discrepancies |
-| Tests | 62 methods, including true bridge ablation, Cartesian-product frontier comparison, path/snapshot/endpoint/identifier checks, oracle-witness checks, and resume corruption recovery |
+| Tests | 66 current methods, including manifest-bound source identity, true bridge ablation, Cartesian-product frontier comparison, oracle-witness checks, and source/input/output-aware resume recovery |
 
 `results/joint-oracle-instances.jsonl` retains each generated weighted problem (origins, weights, facts, rules, and target) in addition to `joint-oracle-cases.jsonl` metrics. `joint-public-cases.jsonl`, `joint-theory.csv`, and `joint-scaling.csv` contain the other case-level data. `joint-certificates/` contains all 45 public case documents. `results/joint-replay.json` records that the producer module was not imported and that external independent review is false.
 
@@ -90,5 +90,7 @@ The matching license notices are retained under `inputs/public/licenses/`. The e
 A successful reproduction establishes that the packaged deterministic computations regenerate and agree with their declared finite oracles. It does not establish complete C semantics, real defects, warning precision/recall, developer usefulness, semantic identity across versions, calibrated uncertainty, proof-assistant verification, or independent human replication. Source anchors establish retained textual identity; bridges remain explicit assumptions. Timing files are descriptive and are not a cross-machine performance claim.
 
 The executable experiments use deterministic conventional Python and make no external model calls.
+
+The 2026-09-25 clean-reproduction record and its 62-test logs are historical; they predate the current consumer and resume regressions. Current focused checks run 66 tests and the finite campaigns, but do not reestablish Unix resource-limit measurements or a paper build. The prepared `scientific-checks.yml` workflow runs the complete bounded command from this standalone root on Ubuntu 24.04 and retains raw outputs on failure; preparing that workflow is not evidence that hosted checks have run.
 
 Original artifact code and original fixtures are released under `LICENSE`. Publisher template files are not part of this standalone repository. Upstream excerpts retain their included license notices.

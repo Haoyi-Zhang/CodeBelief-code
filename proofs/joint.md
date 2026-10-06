@@ -3,8 +3,9 @@
 ## 1. Model
 
 Let `O` be a finite set of selectable **origins**.  An origin is a code span, an
-explicit change record, or an explicit bridge assumption; every origin `o` has
-a non-negative integer cost `w(o)`.  A base fact is a pair `(l,A)` consisting of
+explicit change record, an explicit bridge assumption, or a declared seed/context
+premise in a controlled finite instance; every origin `o` has a non-negative
+integer cost `w(o)`.  A base fact is a pair `(l,A)` consisting of
 a ground literal `l` and a finite support `A subseteq O`.  A finite positive
 Horn rule has the form
 
@@ -42,10 +43,11 @@ retained support.
 Antichain propagation terminates on every finite input.
 
 **Proof.**  Every retained object is a subset of the finite origin set `O`.
-For each literal there are at most `2^|O|` distinct supports.  An insertion
-adds a previously absent support and may remove supersets; it never creates a
-new origin or a support outside the finite powerset.  There are finitely many
-literals appearing in facts or rules.  Consequently only finitely many
+For each literal there are at most `2^|O|` distinct supports. A support can be
+accepted at most once: after removal a retained strict subset represents it,
+and later replacements preserve an even smaller representative, preventing
+reinsertion. There are finitely many literals appearing in facts or rules.
+Consequently only finitely many
 successful insertions can occur, after which a complete pass changes no
 frontier and the algorithm stops.  The implementation additionally has a
 frontier cap that converts an unexpectedly large finite instance into an
@@ -191,11 +193,11 @@ w(A union B) <= w(A)+w(B) <= 2 w(U*) = 2 OPT.
 For every `k>=2`, there is a unit-cost instance on which independent-side
 selection costs `2k`, while the joint optimum costs `k+1`.
 
-**Proof.**  Give `p` a private support `A` of size `k` and a shared support `S`
+**Proof.**  Choose pairwise disjoint origin sets `A`, `B`, and `S`. Give `p` a private support `A` of size `k` and a shared support `S`
 of size `k+1`.  Give `not:p` a disjoint private support `B` of size `k` and the
 same shared support `S`.  The independent minimum for each side is its private
 support, so the union is `A union B` of size `2k`.  Joint selection uses `S`
-for both sides and costs `k+1`.  No smaller support exists by construction.
+for both sides and costs `k+1`. Every other candidate union costs at least `2k`.
 The ratio `2k/(k+1)` tends to two.  `make_tight_two_approx` constructs exactly
 this family, and the retained finite checks cover `k` through 128.
 

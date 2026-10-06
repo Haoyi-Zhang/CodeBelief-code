@@ -8,7 +8,7 @@ Strong negation records incompatibility inside the declared belief language; it 
 
 ## Internal validity
 
-Implementation errors are possible despite written proofs. Risk is reduced through 35 tests, 825 exact/oracle comparisons using a distinct bit-mask representation, formula families, a separate consumer, and mutation tests. The producer and consumer were developed in one research process, so this is not an independent replication. The proofs are ordinary mathematical arguments, not proof-assistant objects.
+Implementation errors are possible despite written proofs. Risk is reduced through the current regression suite, 825 exact/oracle comparisons using a distinct bit-mask representation, formula families, a separate consumer, and mutation tests. The producer and consumer were developed in one research process, so this is not an independent replication. The proofs are ordinary mathematical arguments, not proof-assistant objects.
 
 The deterministic random generator is a coverage instrument, not a model of real analyses. Its zero discrepancy count supports regression and finite differential correctness only. It must not be translated into an error probability for unseen repositories.
 

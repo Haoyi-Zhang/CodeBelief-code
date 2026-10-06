@@ -67,8 +67,8 @@ A negative-control document uses `status="no-contradiction-certificate"`. It doe
 The independent consumer rejects a document unless all of the following hold:
 
 1. every origin/fact/rule identifier is unique and all references resolve;
-2. every path normalizes inside the repository root;
-3. every declared code anchor occurs exactly once in its retained file;
+2. every path is canonical relative POSIX and resolves inside the repository root;
+3. every code record's project, host, snapshot, and file agree with `inputs/public/manifest.json`, and its anchor occurs exactly once in that file;
 4. every change record names two existing, distinct snapshot endpoints;
 5. every bridge is explicit rather than inferred from equal names;
 6. each proof tree is locally valid and derives the declared target;
@@ -79,6 +79,8 @@ The independent consumer rejects a document unless all of the following hold:
 11. declared negative controls remain non-contradictory.
 
 The replay code does not deserialize executable objects, follow absolute paths, fetch network data, or import the producer module.
+
+The source-aware consumer is bounded to the registered public excerpts. The manifest supplies the trusted snapshot identity; comparing its labels is not independent authentication of upstream releases. Seed-only synthetic certificates need no public manifest.
 
 ## 7. Trust boundary
 

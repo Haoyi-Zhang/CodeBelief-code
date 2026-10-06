@@ -4,7 +4,7 @@
 
 Let x_0 and x_1 be distinct propositional atoms. The formula x_0 and not-x_1 is satisfiable by x_0=true, x_1=false. Adding the persistence premise x_0=x_1 makes it unsatisfiable. These statements are checked by all four Boolean valuations in the artifact, and the displayed assignment is a complete mathematical argument.
 
-The code index binds a certificate to one original ordered snapshot. It does not prove that two matching function names describe one unchanging semantic obligation. A general history witness would need an explicit admissibility rule for bridges and a cost/selection model for retained changes. Neither exists in this checkpoint. The four source snapshots are manually constructed controls, not a mined software history.
+The older selection experiment's code index binds a certificate to one original ordered snapshot. It does not prove that two matching function names describe one unchanging semantic obligation. Its four history snapshots are manually constructed controls. The separate joint model in `joint.md` adds explicit selectable bridges and change costs; replay still does not establish semantic continuity or reconstruct a mined software history.
 
 ## U1. Observation-only defect calibration is unidentified
 

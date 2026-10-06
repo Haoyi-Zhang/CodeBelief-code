@@ -8,6 +8,7 @@ origin subsets.
 from __future__ import annotations
 
 from itertools import combinations
+import json
 from pathlib import Path, PurePosixPath
 from typing import Iterable
 
@@ -78,6 +79,31 @@ def _required_strings(mapping: dict, keys: tuple[str, ...], context: str) -> Non
         require(type(mapping.get(key)) is str and mapping[key], f"missing {context} field: {key}")
 
 
+def _snapshot_bindings(root: Path) -> dict[str, tuple[str, str, str]]:
+    """Bind public code records to the retained manifest, not their own labels.
+
+    This bounded source consumer uses the packaged public excerpts. The manifest
+    is trusted input provenance; checking it does not authenticate upstream tags.
+    """
+    manifest = json.loads((root / "inputs/public/manifest.json").read_text(encoding="utf-8"))
+    require(type(manifest) is dict and type(manifest.get("projects")) is list,
+            "public snapshot manifest is malformed")
+    bindings = {}
+    for project in manifest["projects"]:
+        require(type(project) is dict, "manifest project must be an object")
+        _required_strings(project, ("project",), "manifest project")
+        require(type(project.get("snapshots")) is list, "manifest snapshots missing")
+        for snapshot in project["snapshots"]:
+            require(type(snapshot) is dict, "manifest snapshot must be an object")
+            _required_strings(snapshot, ("path", "tag"), "manifest snapshot")
+            parts = _relative_parts(snapshot["path"])
+            require(len(parts) >= 5 and parts[:2] == ("inputs", "public")
+                    and parts[3] == snapshot["tag"], "manifest snapshot/path mismatch")
+            require(snapshot["path"] not in bindings, "duplicate manifest source path")
+            bindings[snapshot["path"]] = (project["project"], parts[2], snapshot["tag"])
+    return bindings
+
+
 def validate_problem(problem: dict, root: Path) -> tuple[dict[str, dict], dict[str, dict], dict[str, dict]]:
     require(type(problem.get("name")) is str and problem["name"], "problem identity missing")
     positive = _validate_literal(problem.get("positive"))
@@ -87,6 +113,7 @@ def validate_problem(problem: dict, root: Path) -> tuple[dict[str, dict], dict[s
     origin_records = problem.get("origins")
     require(type(origin_records) is list, "origin table missing")
     origins: dict[str, dict] = {}
+    bindings = None
     for origin in origin_records:
         require(type(origin) is dict, "origin record must be an object")
         identifier = origin.get("id")
@@ -104,8 +131,11 @@ def validate_problem(problem: dict, root: Path) -> tuple[dict[str, dict], dict[s
             _anchor(root, path, anchor)
             _required_strings(metadata, ("project", "host", "snapshot", "file"), "code metadata")
             require(metadata["file"] == path, "code metadata file/path mismatch")
-            require(metadata["snapshot"] in _relative_parts(path),
-                    "code snapshot is not bound to its retained file path")
+            if bindings is None:
+                bindings = _snapshot_bindings(root)
+            require(path in bindings, "code file is not a retained public snapshot")
+            require((metadata["project"], metadata["host"], metadata["snapshot"]) == bindings[path],
+                    "code project/host/snapshot does not match retained manifest")
         else:
             require(origin.get("path") is None and origin.get("anchor") is None,
                     "non-code origin carries a source path/anchor")

@@ -8,11 +8,15 @@ output declared for that task and every declared dependency still validates.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 from pathlib import Path
 import re
-import resource
+try:
+    import resource
+except ImportError:
+    resource = None  # Pure validation helpers remain inspectable on Windows.
 import subprocess
 import sys
 import time
@@ -25,6 +29,8 @@ DEFAULT_TASKS = [
 
 
 def child_limits() -> None:
+    if resource is None:
+        raise RuntimeError("bounded reproduction requires the Unix resource module")
     resource.setrlimit(resource.RLIMIT_CPU, (30, 31))
     resource.setrlimit(resource.RLIMIT_AS, (512 * 1024 * 1024, 512 * 1024 * 1024))
     if hasattr(os, "sched_getaffinity"):
@@ -110,8 +116,34 @@ def dependencies_valid(task: str, out: Path) -> bool:
 
 
 def task_ready_to_skip(task: str, out: Path, records: list[dict]) -> bool:
-    successful_exit = any(record.get("task") == task and record.get("exit_code") == 0 for record in records)
+    fingerprint = science_inputs_fingerprint()
+    successful_exit = any(
+        record.get("task") == task and record.get("exit_code") == 0
+        and record.get("science_inputs_sha256") == fingerprint for record in records
+    )
     return successful_exit and task_outputs_valid(task, out) and dependencies_valid(task, out)
+
+
+def science_inputs_fingerprint(root: Path | None = None) -> str:
+    """Bind resumable computation to executable source and retained inputs.
+
+    Membership and bytes both matter. Missing fingerprints in historical records
+    cause recomputation. Proof prose and host-dependent timing are not hashed.
+    """
+    root = ROOT if root is None else root
+    paths = list(root.glob("*.py"))
+    for directory in ("src", "tests"):
+        paths.extend((root / directory).rglob("*.py"))
+    paths.extend(path for path in (root / "inputs").rglob("*") if path.is_file())
+    digest = hashlib.sha256()
+    for path in sorted(paths, key=lambda path: path.relative_to(root).as_posix()):
+        relative = path.relative_to(root).as_posix().encode("utf-8")
+        content = path.read_bytes()
+        digest.update(len(relative).to_bytes(8, "big"))
+        digest.update(relative)
+        digest.update(len(content).to_bytes(8, "big"))
+        digest.update(content)
+    return digest.hexdigest()
 
 
 def build_tasks(requested: list[str], sizes: list[int]) -> list[tuple[str, list[str]]]:
@@ -149,6 +181,8 @@ def main() -> None:
     parser.add_argument("--sizes", nargs="+", type=int, default=list(range(1, 8)))
     parser.add_argument("--resume", action="store_true")
     args = parser.parse_args()
+    if resource is None:
+        parser.error("bounded reproduction requires Unix resource limits; focused finite checks are separate")
     out = args.out.resolve()
     if out == ROOT or out == ROOT / "results" or out.is_relative_to(ROOT / "inputs") or out.is_relative_to(ROOT / "src"):
         parser.error("choose a fresh reproduction output directory")
@@ -174,6 +208,7 @@ def main() -> None:
             print(json.dumps({"task": name, "resume": "validated-skip"}), flush=True)
             continue
         command = _expand_command(template, out)
+        fingerprint = science_inputs_fingerprint()
         started = time.monotonic()
         before = resource.getrusage(resource.RUSAGE_CHILDREN)
         env = dict(
@@ -203,6 +238,7 @@ def main() -> None:
             "workers": 1,
             "address_space_limit_bytes": 536870912,
             "wall_timeout_seconds": 32,
+            "science_inputs_sha256": fingerprint,
         }
         records.append(record)
         measurement.write_text(json.dumps(records, indent=2) + "\n")
@@ -211,6 +247,8 @@ def main() -> None:
             raise SystemExit("campaign working allocation exhausted; repair reserve protected")
         if exit_code:
             raise SystemExit(f"{name} failed: inspect {out / (name + '.log')}")
+        if science_inputs_fingerprint() != fingerprint:
+            raise SystemExit(f"{name} completed but executable source or retained inputs changed during execution")
         if not dependencies_valid(name, out):
             raise SystemExit(f"{name} completed but a declared dependency is missing or stale")
         if not task_outputs_valid(name, out):

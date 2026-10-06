@@ -130,7 +130,7 @@ def check_certificate(root: Path, certificate: dict) -> dict:
         raise ValueError("snapshot must be a nonnegative ordinal")
     # Snapshot/source binding is checked against the retained ordered input index.
     history = json.loads((root/"inputs/index.json").read_text())
-    if not any(e["source"] == str(p) and e["snapshot"] == certificate["snapshot"] for e in history):
+    if not any(e["source"] == p.as_posix() and e["snapshot"] == certificate["snapshot"] for e in history):
         raise ValueError("snapshot/source mismatch")
     features = tuple(census[i] for i in ids)
     choice = tuple(ids.index(i) for i in selected)
