@@ -50,6 +50,20 @@ The focused commands are useful for inspection; the full runner is the authorita
 
 The producer maintains every inclusion-minimal proof support. It then examines the Cartesian product of the two opposed target frontiers and chooses a minimum-cost union with deterministic tie breaking. The brute-force oracle uses a different representation: origin selections and derived literal sets are integer masks. It visits every subset within the declared 20-origin guard and computes fixed Horn closure independently of the antichain implementation.
 
+Each antichain/exact/independent-side invocation prepares one local read-only
+origin lookup, shared by its proof ordering and direct union pricing. This is
+not a support-cost or union cache: every cost still sums the distinct selected
+origins. No frontier, proof, iteration, cap, or independent-consumer rule changes.
+The additional portable regression is run explicitly by scientific CI:
+
+```sh
+python3 -B tests/regression_weight_lookup.py -v
+```
+
+It checks literal tiny enumeration, full frozen public certificates and controls,
+and lookup construction count; the retained 66-test census and measurements are
+unchanged. This bookkeeping change carries no measured speedup claim.
+
 `src/joint_benchmark.py` constructs the public-host, oracle, formula-family, and scaling campaigns. `src/joint_replay.py` and the top-level `replay_joint.py` are a separately implemented consumer path. The consumer requires canonical relative POSIX paths; binds every anchor to its declared project, snapshot, and file; checks distinct change endpoints and identifier/embedded-record agreement; validates bridge scope; replays proof trees, closure, union, and cost; and checks canonical, known, feasible, optimum `oracle_selected` witnesses for bounded positive cases. The entry point records at runtime whether `src.joint` is present in `sys.modules`; the retained run reports false.
 
 The older `src/model.py`, `src/experiment.py`, `src/replay.py`, and `verify.py` preserve the moving-threshold selection-semantics boundary and ordinary-Horn finite checks. They remain scientifically relevant because they demonstrate that deleting observations while re-inferring a rule changes the predicate.

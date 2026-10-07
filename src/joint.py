@@ -9,6 +9,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from itertools import product
+from types import MappingProxyType
 from typing import Iterable, Mapping, Sequence
 
 
@@ -172,21 +173,24 @@ def negate(literal: str) -> str:
 
 
 def support_cost(problem: Problem, support: Iterable[str]) -> int:
-    weights = problem.origin_map
+    return _support_cost(problem.origin_map, support)
+
+
+def _support_cost(weights: Mapping[str, Origin], support: Iterable[str]) -> int:
     ids = frozenset(support)
     if not ids <= weights.keys():
         raise ValueError("support contains unknown origin")
     return sum(weights[x].weight for x in ids)
 
 
-def _proof_key(problem: Problem, proof: Proof) -> tuple[int, int, tuple[str, ...], str]:
-    return (support_cost(problem, proof.support), len(proof.support), tuple(sorted(proof.support)), proof.step)
+def _proof_key(weights: Mapping[str, Origin], proof: Proof) -> tuple[int, int, tuple[str, ...], str]:
+    return (_support_cost(weights, proof.support), len(proof.support), tuple(sorted(proof.support)), proof.step)
 
 
-def _insert_antichain(problem: Problem, frontier: dict[frozenset[str], Proof], proof: Proof) -> bool:
+def _insert_antichain(weights: Mapping[str, Origin], frontier: dict[frozenset[str], Proof], proof: Proof) -> bool:
     """Insert a support if no existing support is a subset; remove strict supersets."""
     if proof.support in frontier:
-        if _proof_key(problem, proof) < _proof_key(problem, frontier[proof.support]):
+        if _proof_key(weights, proof) < _proof_key(weights, frontier[proof.support]):
             frontier[proof.support] = proof
         return False
     if any(existing <= proof.support for existing in frontier):
@@ -206,12 +210,16 @@ def derive_antichains(problem: Problem, *, max_frontier_entries: int = 100_000) 
     cap turns pathological inputs into an explicit error rather than resource
     exhaustion.
     """
+    return _derive_antichains(problem, MappingProxyType(problem.origin_map), max_frontier_entries)
+
+
+def _derive_antichains(problem: Problem, weights: Mapping[str, Origin], max_frontier_entries: int):
     if type(max_frontier_entries) is not int or max_frontier_entries < 0:
         raise ValueError("max_frontier_entries must be a non-negative integer")
     frontiers: dict[str, dict[frozenset[str], Proof]] = {}
     for fact in sorted(problem.facts):
         proof = Proof(fact.literal, frozenset(fact.origins), fact.name)
-        if _insert_antichain(problem, frontiers.setdefault(fact.literal, {}), proof):
+        if _insert_antichain(weights, frontiers.setdefault(fact.literal, {}), proof):
             if sum(len(v) for v in frontiers.values()) > max_frontier_entries:
                 raise RuntimeError("provenance frontier cap exceeded during fact initialization")
     iterations = 0
@@ -223,13 +231,13 @@ def derive_antichains(problem: Problem, *, max_frontier_entries: int = 100_000) 
                 continue
             premise_options: list[list[Proof]] = []
             for literal in rule.body:
-                premise_options.append(sorted(frontiers[literal].values(), key=lambda p: _proof_key(problem, p)))
+                premise_options.append(sorted(frontiers[literal].values(), key=lambda p: _proof_key(weights, p)))
             combinations_iter = product(*premise_options) if premise_options else [()]
             target = frontiers.setdefault(rule.head, {})
             for premises in combinations_iter:
                 support = frozenset().union(*(p.support for p in premises)) if premises else frozenset()
                 proof = Proof(rule.head, support, rule.name, tuple(premises))
-                if _insert_antichain(problem, target, proof):
+                if _insert_antichain(weights, target, proof):
                     changed = True
                     if sum(len(v) for v in frontiers.values()) > max_frontier_entries:
                         raise RuntimeError("provenance frontier cap exceeded")
@@ -238,15 +246,16 @@ def derive_antichains(problem: Problem, *, max_frontier_entries: int = 100_000) 
 
 
 def solve_exact(problem: Problem, *, max_frontier_entries: int = 100_000) -> Solution | None:
-    frontiers, iterations = derive_antichains(problem, max_frontier_entries=max_frontier_entries)
+    weights = MappingProxyType(problem.origin_map)
+    frontiers, iterations = _derive_antichains(problem, weights, max_frontier_entries)
     if problem.positive not in frontiers or problem.negative not in frontiers:
         return None
-    pos = sorted(frontiers[problem.positive].values(), key=lambda p: _proof_key(problem, p))
-    neg = sorted(frontiers[problem.negative].values(), key=lambda p: _proof_key(problem, p))
+    pos = sorted(frontiers[problem.positive].values(), key=lambda p: _proof_key(weights, p))
+    neg = sorted(frontiers[problem.negative].values(), key=lambda p: _proof_key(weights, p))
     best: tuple[tuple[int, int, tuple[str, ...], str, str], Proof, Proof, frozenset[str]] | None = None
     for p, n in product(pos, neg):
         union = p.support | n.support
-        key = (support_cost(problem, union), len(union), tuple(sorted(union)), p.step, n.step)
+        key = (_support_cost(weights, union), len(union), tuple(sorted(union)), p.step, n.step)
         if best is None or key < best[0]:
             best = (key, p, n, union)
     assert best is not None
@@ -256,13 +265,14 @@ def solve_exact(problem: Problem, *, max_frontier_entries: int = 100_000) -> Sol
 
 def independent_sides(problem: Problem) -> Solution | None:
     """Choose exact one-side minima; their union obeys the tight factor-two cost bound."""
-    frontiers, iterations = derive_antichains(problem)
+    weights = MappingProxyType(problem.origin_map)
+    frontiers, iterations = _derive_antichains(problem, weights, 100_000)
     if problem.positive not in frontiers or problem.negative not in frontiers:
         return None
-    p = min(frontiers[problem.positive].values(), key=lambda x: _proof_key(problem, x))
-    n = min(frontiers[problem.negative].values(), key=lambda x: _proof_key(problem, x))
+    p = min(frontiers[problem.positive].values(), key=lambda x: _proof_key(weights, x))
+    n = min(frontiers[problem.negative].values(), key=lambda x: _proof_key(weights, x))
     union = p.support | n.support
-    return Solution(problem.name, union, support_cost(problem, union), p, n,
+    return Solution(problem.name, union, _support_cost(weights, union), p, n,
                     len(frontiers[problem.positive]), len(frontiers[problem.negative]),
                     sum(len(v) for v in frontiers.values()), iterations)
 

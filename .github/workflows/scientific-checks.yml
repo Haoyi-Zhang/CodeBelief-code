@@ -32,6 +32,8 @@ jobs:
           mkdir -p scientific-output-logs
           ulimit -v 1048576
           ulimit -t 650
+          timeout --signal=TERM --kill-after=5s 60s \
+            python -B tests/regression_weight_lookup.py -v
           timeout --signal=TERM --kill-after=5s 570s \
             python -B reproduce.py --out scientific-output \
             2>&1 | tee scientific-output-logs/run.log
