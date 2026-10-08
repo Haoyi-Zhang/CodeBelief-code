@@ -137,11 +137,46 @@ class Proof:
 
     @property
     def depth(self) -> int:
-        return 1 + max((p.depth for p in self.premises), default=0)
+        return _proof_statistics(self)[0]
 
     @property
     def nodes(self) -> int:
-        return 1 + sum(p.nodes for p in self.premises)
+        return _proof_statistics(self)[1]
+
+
+def _proof_postorder(root: Proof) -> list[Proof]:
+    """Visit a finite proof DAG without consuming the Python call stack."""
+    done: set[int] = set()
+    active: set[int] = set()
+    order: list[Proof] = []
+    pending = [(root, False)]
+    while pending:
+        node, expanded = pending.pop()
+        identity = id(node)
+        if identity in done:
+            continue
+        if expanded:
+            active.remove(identity)
+            done.add(identity)
+            order.append(node)
+            continue
+        if identity in active:
+            raise ValueError("cyclic proof")
+        active.add(identity)
+        pending.append((node, True))
+        pending.extend((child, False) for child in reversed(node.premises))
+    return order
+
+
+def _proof_statistics(root: Proof) -> tuple[int, int]:
+    values: dict[int, tuple[int, int]] = {}
+    for node in _proof_postorder(root):
+        children = [values[id(child)] for child in node.premises]
+        values[id(node)] = (
+            1 + max((depth for depth, _ in children), default=0),
+            1 + sum(nodes for _, nodes in children),
+        )
+    return values[id(root)]
 
 
 @dataclass(frozen=True)
@@ -388,12 +423,37 @@ def is_inclusion_minimal(problem: Problem, selected: Iterable[str]) -> bool:
 
 
 def proof_to_dict(proof: Proof) -> dict:
-    return {
-        "literal": proof.literal,
-        "support": sorted(proof.support),
-        "step": proof.step,
-        "premises": [proof_to_dict(p) for p in proof.premises],
-    }
+    order = _proof_postorder(proof)
+    indices = {id(node): i for i, node in enumerate(order)}
+    depth: dict[int, int] = {}
+    for node in order:
+        depth[id(node)] = 1 + max(
+            (depth[id(child)] for child in node.premises), default=0
+        )
+    if depth[id(proof)] > 128:
+        # Flat references also keep JSON encoding/decoding independent of depth.
+        return {
+            "format": "proof-dag",
+            "root": indices[id(proof)],
+            "nodes": [
+                {
+                    "literal": node.literal,
+                    "support": sorted(node.support),
+                    "step": node.step,
+                    "premises": [indices[id(child)] for child in node.premises],
+                }
+                for node in order
+            ],
+        }
+    objects: dict[int, dict] = {}
+    for node in order:
+        objects[id(node)] = {
+            "literal": node.literal,
+            "support": sorted(node.support),
+            "step": node.step,
+            "premises": [objects[id(child)] for child in node.premises],
+        }
+    return objects[id(proof)]
 
 
 def problem_to_dict(problem: Problem) -> dict:

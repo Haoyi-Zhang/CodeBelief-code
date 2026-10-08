@@ -105,6 +105,6 @@ A successful reproduction establishes that the packaged deterministic computatio
 
 The executable experiments use deterministic conventional Python and make no external model calls.
 
-The 2026-09-25 clean-reproduction record and its 62-test logs are historical; they predate the current consumer and resume regressions. Current focused checks run 66 tests and the finite campaigns, but do not reestablish Unix resource-limit measurements or a paper build. The prepared `scientific-checks.yml` workflow runs the complete bounded command from this standalone root on Ubuntu 24.04 and retains raw outputs on failure; preparing that workflow is not evidence that hosted checks have run.
+The 2026-09-25 clean-reproduction record and its 62-test logs are historical; they predate the current consumer and resume regressions. Current focused checks run 71 tests and the finite campaigns, but do not reestablish Unix resource-limit measurements or a paper build. The prepared `scientific-checks.yml` workflow runs the complete bounded command from this standalone root on Ubuntu 24.04 and retains raw outputs on failure; preparing that workflow is not evidence that hosted checks have run.
 
 Original artifact code and original fixtures are released under `LICENSE`. Publisher template files are not part of this standalone repository. Upstream excerpts retain their included license notices.

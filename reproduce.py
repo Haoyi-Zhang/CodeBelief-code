@@ -47,14 +47,14 @@ def declared_outputs(task: str) -> tuple[str, ...]:
     if task == "tests":
         return ("tests.log",)
     if task == "pilot":
-        return ("pilot.json",)
+        return ("pilot.json", "certificate-pinned.json", "certificate-remined.json")
     if task.startswith("population-"):
         n = task.split("-", 1)[1]
         return (f"population-{n}.csv", f"population-{n}-summary.json")
     if task == "horn":
         return ("horn.json", "horn-cases.jsonl", "horn-certificates.json")
     if task == "family":
-        return ("family.csv", "certificate-pinned.json", "certificate-remined.json")
+        return ("family.csv", "temporal.json")
     if task == "verify":
         return ("independent-verification.json",)
     if task == "joint":
@@ -74,7 +74,7 @@ def declared_outputs(task: str) -> tuple[str, ...]:
 def task_dependencies(task: str) -> tuple[str, ...]:
     populations = tuple(f"population-{n}" for n in range(1, 8))
     if task == "verify":
-        return populations + ("horn", "family")
+        return populations + ("pilot", "horn", "family")
     if task == "joint-replay":
         return ("joint",)
     if task == "report":

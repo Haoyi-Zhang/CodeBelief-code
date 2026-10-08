@@ -230,7 +230,8 @@ def validate_problem(problem: dict, root: Path) -> tuple[dict[str, dict], dict[s
     return origins, facts, rules
 
 
-def replay_proof(node: dict, facts: dict[str, dict], rules: dict[str, dict]) -> tuple[str, frozenset[str]]:
+def _replay_step(node: dict, replayed: list[tuple[str, frozenset[str]]],
+                 facts: dict[str, dict], rules: dict[str, dict]) -> tuple[str, frozenset[str]]:
     require(type(node) is dict, "proof node must be an object")
     step = node.get("step")
     literal = _validate_literal(node.get("literal"))
@@ -249,13 +250,66 @@ def replay_proof(node: dict, facts: dict[str, dict], rules: dict[str, dict]) -> 
         rule = rules[step]
         require(literal == rule["head"], "rule head mismatch")
         require(len(premises) == len(rule["body"]), "rule arity mismatch")
-        replayed = [replay_proof(p, facts, rules) for p in premises]
         require([x[0] for x in replayed] == rule["body"], "rule premise order/literals mismatch")
         union = frozenset().union(*(x[1] for x in replayed)) if replayed else frozenset()
         require(support == union, "rule support union mismatch")
     else:
         raise ReplayError(f"unknown proof step: {step}")
     return literal, support
+
+
+def replay_proof(node: dict, facts: dict[str, dict], rules: dict[str, dict]) -> tuple[str, frozenset[str]]:
+    """Replay nested trees or flat proof DAGs by iterative postorder."""
+    require(type(node) is dict, "proof must be an object")
+    flat = node.get("format") == "proof-dag"
+    if flat:
+        table = node.get("nodes")
+        root = node.get("root")
+        require(type(table) is list and table, "proof DAG has no nodes")
+        require(type(root) is int and 0 <= root < len(table), "invalid proof root")
+
+        def record(key):
+            require(type(key) is int and 0 <= key < len(table), "invalid premise index")
+            value = table[key]
+            require(type(value) is dict, "proof node must be an object")
+            return value
+
+        def identity(key):
+            return key
+    else:
+        root = node
+
+        def record(key):
+            require(type(key) is dict, "proof node must be an object")
+            return key
+
+        def identity(key):
+            return id(key)
+
+    values: dict[int, tuple[str, frozenset[str]]] = {}
+    active: set[int] = set()
+    pending = [(root, False)]
+    while pending:
+        key, expanded = pending.pop()
+        current = record(key)
+        idx = identity(key)
+        if idx in values:
+            continue
+        premises = current.get("premises")
+        require(type(premises) is list, "proof premises must be a list")
+        if expanded:
+            values[idx] = _replay_step(
+                current, [values[identity(child)] for child in premises], facts, rules
+            )
+            active.remove(idx)
+            continue
+        require(idx not in active, "cyclic proof")
+        active.add(idx)
+        pending.append((key, True))
+        pending.extend((child, False) for child in reversed(premises))
+    if flat:
+        require(len(values) == len(table), "proof DAG contains unreachable nodes")
+    return values[identity(root)]
 
 
 def closure(problem: dict, selected: Iterable[str]) -> frozenset[str]:
