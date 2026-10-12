@@ -108,3 +108,19 @@ The executable experiments use deterministic conventional Python and make no ext
 The 2026-09-25 clean-reproduction record and its 62-test logs are historical; they predate the current consumer and resume regressions. Current focused checks run 71 tests and the finite campaigns, but do not reestablish Unix resource-limit measurements or a paper build. The prepared `scientific-checks.yml` workflow runs the complete bounded command from this standalone root on Ubuntu 24.04 and retains raw outputs on failure; preparing that workflow is not evidence that hosted checks have run.
 
 Original artifact code and original fixtures are released under `LICENSE`. Publisher template files are not part of this standalone repository. Upstream excerpts retain their included license notices.
+
+## Vector figure reproduction
+
+Install the optional figure dependency with `python -m pip install -r requirements-figures.txt`,
+then run `python -B scripts/plot_figures.py` from this standalone artifact.
+It reads `results/joint-theory.csv` and `results/joint-scaling.csv`; it does not
+run the scientific campaign. Native vector PDFs are written to `figures/`.
+If the sibling paper's `figures/` directory exists, identical PDFs are copied there;
+`--out` and `--paper-dir` may select other destinations.
+
+The serif family is Linux Libertine, matching the supplied ACM paper.
+The unmodified regular and italic TrueType fonts in `fonts/` come from the
+[Libertine project's 5.3.0 distribution](https://sourceforge.net/projects/linuxlibertine/files/linuxlibertine/5.3.0/).
+Their copyright and SIL Open Font License are retained in `fonts/OFL-1.1.txt`.
+They make figure reproduction independent of local font installation.
+No TeX engine, core PDF fonts, model API, or rasterization is used by this command.
