@@ -128,9 +128,12 @@ At most `1 + sum_l I_l` productive-plus-final passes occur. Target pairing uses
 `O(n g_p g_notp)` set work plus ordering. Sorted premise lists are materialized
 and their Cartesian product streamed, with no all-union or cost cache.
 Peak support storage is `O(n sum_l g_l)` plus `O(k_r n)` transient tuple and
-candidate space.  Each retained support stores one canonical backpointer to
-premise proof objects; the selected proofs are recursively expanded in JSON,
-so serialized proof size is a separate output/replay cost.  Peak and transient
+candidate space. Each retained support stores one canonical backpointer to
+premise proof objects. Packed proof storage counts all reachable objects and
+edges, including proofs of pruned supports still referenced by surviving
+proofs. Serialization and replay traverse iteratively. Output through depth
+128 uses nested JSON and can duplicate shared premises; deeper output uses a
+flat indexed DAG. Emitted proof size is a separate output/replay cost. Peak and transient
 frontiers matter: `I_l` may exceed final frontier size, and a peak frontier can
 reach the largest powerset antichain.
 
