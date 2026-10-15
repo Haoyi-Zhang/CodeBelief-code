@@ -1,126 +1,108 @@
 # Joint minimal contradiction certificates for evolving code beliefs
 
-This repository is the standalone artifact for *Joint Minimal Contradiction Certificates for Evolving Code Beliefs*. It implements and checks a bounded problem: select a minimum-weight union of code, change, and explicit bridge origins that supports positive-Horn derivations of a literal and its syntactic strong negation.
+This standalone artifact implements a finite optimization problem: select a
+minimum-weight union of code, change, and explicit bridge origins supporting
+positive-Horn derivations of a literal and its syntactic strong negation.
+It includes exact antichain propagation, an exhaustive subset oracle,
+independent-side selection, deletion baselines, and a separately implemented
+certificate consumer.
 
-The repository is complete for that declared finite model. It is not a production C analyzer, defect benchmark, theorem prover, or independently replicated study.
+## Setup and reproduction
 
-## Reproduce from a clean extraction
-
-Requirements: Linux or another Unix-like system with Python 3.10+ and the standard-library `resource` module. No package installation, network, C compiler, SAT/SMT solver, GPU, model API, credentials, sibling paper directory, or hidden cache is used.
+The bounded runner requires Python 3.10+ on a Unix-like system with the
+standard-library `resource` module. Scientific checks require no packages,
+network, compiler, solver, GPU, credentials, or sibling paper directory.
+Run commands from this repository root:
 
 ```sh
 python3 reproduce.py --out ../contradiction-reproduction
 ```
 
-The output directory must be empty. The runner uses one worker and one available CPU core. Each child receives a 512 MiB address-space limit, a 30/31-second CPU limit, and a 32-second wall limit. It executes:
+Use an empty output directory. The runner executes one child at a time with
+one available CPU core where affinity is supported, a 512 MiB address-space
+limit, a 30/31-second CPU limit, and a 32-second wall timeout per child.
+It runs the tests, selection-semantics pilot and seven population chunks,
+ordinary-Horn checks, joint-certificate campaigns, independent consumers, and
+report generation. All 85 deterministic files in `results/expected-files.json`
+must be regenerated and match the retained evidence byte for byte.
+Timing and logs are machine-dependent.
 
-1. 66 unit-test methods;
-2. the original selection-semantics pilot and seven exact population chunks;
-3. 6,452 ordinary-Horn Boolean-oracle checks;
-4. the re-mined/pinned formula families and independent replay;
-5. 45 public-source certificate configurations;
-6. 825 weighted small-instance exact/oracle comparisons;
-7. the conditional factor-two and adverse deletion families;
-8. controlled frontier scaling;
-9. the producer-independent source/certificate consumer; and
-10. deterministic report generation.
-
-On a full successful run, every file named by `results/expected-files.json` is regenerated and compared byte for byte with the retained evidence. There are 85 deterministic files. Measurements and logs are not expected to be byte-identical.
-
-Interrupted runs can resume only from a valid retained measurement file. A recorded zero exit code is not enough: before skipping a task, the runner checks a SHA-256 binding of executable source and retained input membership/bytes, revalidates every declared output against retained evidence, and validates declared dependencies. Records predating the binding force recomputation:
+Resume an interrupted run with:
 
 ```sh
 python3 reproduce.py --out ../contradiction-reproduction --resume
 ```
 
-Focused checks:
+Resume requires retained measurements. A task is skipped only after checking
+its source/input SHA-256 binding, all declared outputs, and dependencies;
+historical records without that binding force recomputation.
+
+Focused checks also work without Unix resource limits, including on Windows
+(use `python` instead of `python3` where appropriate):
 
 ```sh
+python3 -B -m unittest discover -s tests -v
+python3 -B tests/regression_weight_lookup.py -v
 python3 replay_joint.py --results results --report ../joint-replay.json
 python3 verify.py --results results --report ../legacy-replay.json
 python3 report.py --results results --out ../derived-tables
-python3 -m unittest discover -s tests -v
 ```
 
-The focused commands are useful for inspection; the full runner is the authoritative resource-bounded reproduction path.
+These focused commands do not apply the bounded runner's resource limits.
+The scientific GitHub Actions workflow runs both the separate weight-lookup
+regression and the complete bounded reproduction on Ubuntu 24.04.
 
-## Model and algorithms
+## Inputs, results, and implementation
 
-`src/joint.py` defines origins, base facts, fixed positive-Horn rules, exact antichain propagation, independent-side selection, exhaustive bit-mask optimization, deletion, proof trees, and certificate serialization. Strong negation is encoded as literal names beginning with `not:` and is not negation-as-failure.
+`inputs/index.json` identifies original finite source-text fixtures.
+`inputs/public/manifest.json` identifies six tagged excerpts from cJSON
+v1.7.17/v1.7.18, inih r58/r59, and mjson 1.2.6/1.2.7.
+They are read as text, never compiled or executed. Their changes are real;
+the surrounding belief rules and proof alternatives are controlled seeds,
+not maintainer defect labels. Upstream notices are in `inputs/public/licenses/`.
 
-The producer maintains every inclusion-minimal proof support. It then examines the Cartesian product of the two opposed target frontiers and chooses a minimum-cost union with deterministic tie breaking. The brute-force oracle uses a different representation: origin selections and derived literal sets are integer masks. It visits every subset within the declared 20-origin guard and computes fixed Horn closure independently of the antichain implementation.
+`src/joint.py` implements the joint model and algorithms;
+`src/joint_benchmark.py` defines the finite campaigns.
+`src/joint_replay.py` and `replay_joint.py` validate source anchors, change
+endpoints, explicit bridges, proof trees, union costs, and bounded oracle
+witnesses without importing the producer.
+The older model, experiment, replay, and `verify.py` paths remain relevant
+to the re-mined versus pinned selection-semantics boundary.
 
-Each antichain/exact/independent-side invocation prepares one local read-only
-origin lookup, shared by its proof ordering and direct union pricing. This is
-not a support-cost or union cache: every cost still sums the distinct selected
-origins. No frontier, proof, iteration, cap, or independent-consumer rule changes.
-The additional portable regression is run explicitly by scientific CI:
+Retained `results/` include 825 weighted oracle instances, 45 public-host
+configurations (27 seeded positives and 18 negative controls), the conditional
+factor-two and adverse-deletion families, frontier scaling, 32,790 selection
+configurations, and 6,452 ordinary-Horn formulas.
+Raw CSV/JSONL, all public certificates, measurements, and historical run logs
+are retained. `report.py` derives tables and macros from those results.
+
+Model details and the fixed campaign protocol are in `docs/`.
+`proofs/` contains the mathematical arguments.
+`claim_evidence_ledger.csv` maps claims to proofs and evidence;
+`external_resources.csv` records resource provenance and access conditions.
+Historical logs describe their original runs, not the current test census.
+
+## Optional vector figures
 
 ```sh
-python3 -B tests/regression_weight_lookup.py -v
+python -m pip install -r requirements-figures.txt
+python -B scripts/plot_figures.py
 ```
 
-It checks literal tiny enumeration, full frozen public certificates and controls,
-and lookup construction count; the retained 66-test census and measurements are
-unchanged. This bookkeeping change carries no measured speedup claim.
+The renderer reads retained `joint-theory.csv` and `joint-scaling.csv`;
+it does not rerun experiments. It writes vector PDFs to `figures/` and,
+if present, copies them to the sibling paper's `figures/` directory.
+Use `--out` and `--paper-dir` to select destinations.
+Packaged Linux Libertine regular/italic fonts preserve the supplied ACM
+figure typography; their source and SIL Open Font License are in `fonts/`.
 
-`src/joint_benchmark.py` constructs the public-host, oracle, formula-family, and scaling campaigns. `src/joint_replay.py` and the top-level `replay_joint.py` are a separately implemented consumer path. The consumer requires canonical relative POSIX paths; binds every anchor to its declared project, snapshot, and file; checks distinct change endpoints and identifier/embedded-record agreement; validates bridge scope; replays proof trees, closure, union, and cost; and checks canonical, known, feasible, optimum `oracle_selected` witnesses for bounded positive cases. The entry point records at runtime whether `src.joint` is present in `sys.modules`; the retained run reports false.
+## Conditions and licenses
 
-The older `src/model.py`, `src/experiment.py`, `src/replay.py`, and `verify.py` preserve the moving-threshold selection-semantics boundary and ordinary-Horn finite checks. They remain scientifically relevant because they demonstrate that deleting observations while re-inferring a rule changes the predicate.
+Results concern the declared finite model, not complete C semantics, real
+defect detection, developer usefulness, proof-assistant verification, or
+independent human replication. Bridges are explicit assumptions; timings
+are descriptive rather than cross-machine performance claims. Scientific
+programs use deterministic conventional Python and make no external model calls.
 
-## Retained evidence
-
-| Evidence block | Retained result |
-|---|---|
-| Weighted oracle | 825 cases over 4--14 origins; 704 certificates; 0 exact/oracle discrepancies; 0 approximation-bound violations |
-| Tagged public hosts | 45 configurations; 27 seeded positives; 18 negative controls; 0 control false positives; 6 tagged snapshots from 3 projects |
-| Conditional factor-two family | after exact one-side minima are available, parameter through 128; largest ratio 256/129 = 1.984496... |
-| Adverse deletion family | parameter through 128; ratio 128; every output inclusion-minimal |
-| Scaling family | 256 alternatives per side; 1,024 origins; 65,536 candidate support pairs |
-| Moving-predicate census | 32,790 configurations and 3,359,220 subset judgments |
-| Ordinary-Horn census | 6,452 formulas; 0 Boolean-oracle discrepancies |
-| Tests | 66 current methods, including manifest-bound source identity, true bridge ablation, Cartesian-product frontier comparison, oracle-witness checks, and source/input/output-aware resume recovery |
-
-`results/joint-oracle-instances.jsonl` retains each generated weighted problem (origins, weights, facts, rules, and target) in addition to `joint-oracle-cases.jsonl` metrics. `joint-public-cases.jsonl`, `joint-theory.csv`, and `joint-scaling.csv` contain the other case-level data. `joint-certificates/` contains all 45 public case documents. `results/joint-replay.json` records that the producer module was not imported and that external independent review is false.
-
-## Public source inputs and licenses
-
-`inputs/public/manifest.json` identifies exact excerpts from:
-
-* cJSON v1.7.17 and v1.7.18 (MIT);
-* inih r58 and r59 (BSD-3-Clause); and
-* mjson 1.2.6 and 1.2.7 (MIT).
-
-The matching license notices are retained under `inputs/public/licenses/`. The excerpts are immutable text hosts for source-anchor and change-endpoint replay. Their syntactic changes are real; the belief rules, opposing targets, and alternative proof structures around them are controlled seeds. No maintainer label or causal defect claim is inferred.
-
-## Proofs and evidence ledgers
-
-`proofs/joint.md` gives complete ordinary mathematical arguments for termination, soundness, the fixed-point subset-representative lemma, completeness, exact joint optimization, NP-completeness, the conditional tight factor-two cost bound after exact one-side minima are available, and the unbounded deletion gap. `proofs/selection.md` preserves the re-mined/pinned boundary. `proofs/horn.md` and `proofs/scope.md` state the auxiliary finite-Horn and interpretation boundaries.
-
-`claim_evidence_ledger.csv` maps every material manuscript claim to its proof, checker, raw result, figure/table, maturity, and boundary. `external_resources.csv` records public inputs, licenses, scholarly sources used for scope, and official-rule access holds.
-
-## Interpretation limits
-
-A successful reproduction establishes that the packaged deterministic computations regenerate and agree with their declared finite oracles. It does not establish complete C semantics, real defects, warning precision/recall, developer usefulness, semantic identity across versions, calibrated uncertainty, proof-assistant verification, or independent human replication. Source anchors establish retained textual identity; bridges remain explicit assumptions. Timing files are descriptive and are not a cross-machine performance claim.
-
-The executable experiments use deterministic conventional Python and make no external model calls.
-
-The 2026-09-25 clean-reproduction record and its 62-test logs are historical; they predate the current consumer and resume regressions. Current focused checks run 71 tests and the finite campaigns, but do not reestablish Unix resource-limit measurements or a paper build. The prepared `scientific-checks.yml` workflow runs the complete bounded command from this standalone root on Ubuntu 24.04 and retains raw outputs on failure; preparing that workflow is not evidence that hosted checks have run.
-
-Original artifact code and original fixtures are released under `LICENSE`. Publisher template files are not part of this standalone repository. Upstream excerpts retain their included license notices.
-
-## Vector figure reproduction
-
-Install the optional figure dependency with `python -m pip install -r requirements-figures.txt`,
-then run `python -B scripts/plot_figures.py` from this standalone artifact.
-It reads `results/joint-theory.csv` and `results/joint-scaling.csv`; it does not
-run the scientific campaign. Native vector PDFs are written to `figures/`.
-If the sibling paper's `figures/` directory exists, identical PDFs are copied there;
-`--out` and `--paper-dir` may select other destinations.
-
-The serif family is Linux Libertine, matching the supplied ACM paper.
-The unmodified regular and italic TrueType fonts in `fonts/` come from the
-[Libertine project's 5.3.0 distribution](https://sourceforge.net/projects/linuxlibertine/files/linuxlibertine/5.3.0/).
-Their copyright and SIL Open Font License are retained in `fonts/OFL-1.1.txt`.
-They make figure reproduction independent of local font installation.
-No TeX engine, core PDF fonts, model API, or rasterization is used by this command.
+Original code and fixtures use the MIT `LICENSE`; upstream excerpts retain
+their own included notices. Publisher templates are not part of this repository.
